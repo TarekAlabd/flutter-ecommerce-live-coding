@@ -1,4 +1,5 @@
 enum AuthFormType {
   login,
-  register
+  register,
+  forgetPass,
 }
