@@ -2,7 +2,7 @@
 
 [![License: MIT][license_badge]][license_link]
 
-This is an e-commerce app built with Flutter & Dart,  built (and still working on it) in this ["playlist on YouTube"](https://www.youtube.com/playlist?list=PL0vtyWBHY2NXpW_Hazx7jCYqwVlwe7SYk).
+This is an e-commerce app built with Flutter & Dart,  built (and still working on it) in this [playlist on YouTube](https://www.youtube.com/playlist?list=PL0vtyWBHY2NXpW_Hazx7jCYqwVlwe7SYk).
 
 ## Why does this playlist exist?
 
