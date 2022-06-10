@@ -11,6 +11,11 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  persistent_bottom_nav_bar_v2: ^4.2.3
+  firebase_core: ^1.17.1
+  firebase_auth: ^3.3.19
+  cloud_firestore: ^3.1.17
+  provider: ^6.0.3
 
 dev_dependencies:
   flutter_test:
