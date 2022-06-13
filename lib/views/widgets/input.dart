@@ -11,9 +11,12 @@ class Input extends StatelessWidget {
   final bool isReadOnly;
   final String passwordCharacter;
   final Function(String?) onChange;
+  final Function() onEditingComplete;
   final String? Function(String?) onValidate;
   final String initialValue;
   final Color iconColor;
+  final FocusNode? focusNode;
+  final TextInputAction textInputAction;
   const Input({
     Key? key,
     required this.name,
@@ -27,11 +30,18 @@ class Input extends StatelessWidget {
     this.initialValue = '',
     this.iconColor = Colors.grey,
     this.isReadOnly = true,
+    this.focusNode = null,
+    this.textInputAction = TextInputAction.done,
+    required this.onEditingComplete,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
+      autofocus: true,
+      focusNode: focusNode,
+      textInputAction: textInputAction,
+      onEditingComplete: onEditingComplete,
       enabled: isReadOnly,
       initialValue: initialValue,
       onChanged: onChange,
