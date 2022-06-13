@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Ecommerce App',
       theme: ThemeManager.lightTheme,
       onGenerateRoute: onGenerate,
-      initialRoute: AppRoutes.loginPageRoute,
+      initialRoute: AppRoutes.navBottomContainerPageRoute,
       localizationsDelegates: const [
         FormBuilderLocalizations.delegate,
       ],

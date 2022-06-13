@@ -111,7 +111,10 @@ class LoginScreen extends StatelessWidget {
                           _formKey.currentState?.save();
                           if (_formKey.currentState!.validate()) {
                             var user = _formKey.currentState!.value;
-                            debugPrint("user $user");
+                            Navigator.pushNamed(
+                              context,
+                              AppRoutes.navBottomContainerPageRoute,
+                            );
                           } else {
                             debugPrint("validation failed");
                           }

@@ -6,6 +6,10 @@ import 'package:flutter_ecommerce/views/pages/screens.dart';
 
 Route<dynamic> onGenerate(RouteSettings settings) {
   switch (settings.name) {
+    case AppRoutes.navBottomContainerPageRoute:
+      return CupertinoPageRoute(
+        builder: (_) => const NavigationBottomContainer(),
+      );
     case AppRoutes.loginPageRoute:
       return CupertinoPageRoute(
         builder: (_) => LoginScreen(),
