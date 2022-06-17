@@ -5,6 +5,8 @@ import 'package:flutter_ecommerce/utilities/routes.dart';
 import 'package:flutter_ecommerce/views/widgets/main_button.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/default_toast.dart';
+
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
 
@@ -54,6 +56,20 @@ class _AuthPageState extends State<AuthPage> {
       );
     }
   }
+
+  Future<void> _submit2(AuthController model) async {
+    try {
+      await model.submit();
+      const DefaultToast(message: 'successfully logged in', state: ToastStates.success)
+          .showToast();
+      if (!mounted) return;
+      Navigator.of(context).pushNamed(AppRoutes.bottomNavBarRoute);
+    } catch (e) {
+      const DefaultToast(message: 'incorrect email or password', state: ToastStates.error)
+          .showToast();
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +141,7 @@ class _AuthPageState extends State<AuthPage> {
                             : 'Register',
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            _submit(model);
+                            _submit2(model);
                           }
                         },
                       ),
