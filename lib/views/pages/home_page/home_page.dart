@@ -1,9 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/data/models/product_model.dart';
-import 'package:flutter_ecommerce/utilities/constants/color_manager.dart';
-import 'package:flutter_ecommerce/utilities/constants/image_manager.dart';
 import 'package:flutter_ecommerce/views/pages/home_page/widgets/home_header.dart';
 import 'package:flutter_ecommerce/views/pages/home_page/widgets/top_banner.dart';
 import 'package:flutter_ecommerce/views/widgets/product_item.dart';

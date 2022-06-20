@@ -9,13 +9,11 @@ class SocialButton extends StatelessWidget {
     required this.onPress,
   }) : super(key: key);
   final String iconName;
-  final Function onPress;
+  final VoidCallback onPress;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        onPress();
-      },
+      onTap: onPress,
       child: Container(
         child: Center(
           child: SvgPicture.asset(

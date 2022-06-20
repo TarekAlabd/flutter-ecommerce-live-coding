@@ -3,7 +3,7 @@ import 'package:flutter_ecommerce/utilities/constants/color_manager.dart';
 
 class HomeHeader extends StatelessWidget {
   final String mainTitle, subTitle;
-  final Function viewAll;
+  final VoidCallback viewAll;
   const HomeHeader({
     Key? key,
     required this.mainTitle,
@@ -28,19 +28,11 @@ class HomeHeader extends StatelessWidget {
               children: [
                 Text(
                   mainTitle,
-                  style: const TextStyle(
-                    fontSize: 35.0,
-                    fontWeight: FontWeight.bold,
-                    color: ColorManager.kBlack,
-                  ),
+                  style: Theme.of(context).textTheme.headline1,
                 ),
                 Text(
                   subTitle,
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.normal,
-                    color: ColorManager.kGrey,
-                  ),
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],
             ),
@@ -49,9 +41,7 @@ class HomeHeader extends StatelessWidget {
                 bottom: size.height * 0.03,
               ),
               child: InkWell(
-                onTap: () {
-                  viewAll();
-                },
+                onTap: viewAll,
                 child: const Text(
                   'View all',
                   style: TextStyle(

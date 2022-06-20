@@ -12,7 +12,7 @@ class ProductItem extends StatelessWidget {
   }) : super(key: key);
   final Product product;
   final bool isNew;
-  final Function addToFavorites;
+  final VoidCallback addToFavorites;
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +79,7 @@ class ProductItem extends StatelessWidget {
                 backgroundColor: ColorManager.kWhite,
                 radius: 25.0,
                 child: InkWell(
-                  onTap: () {
-                    addToFavorites();
-                  },
+                  onTap: addToFavorites,
                   child: const Icon(
                     Icons.favorite_border_outlined,
                     size: 20.0,
@@ -118,31 +116,56 @@ class ProductItem extends StatelessWidget {
                 ),
                 Text(
                   product.title,
-                  style: const TextStyle(
-                    color: ColorManager.kGrey,
-                    fontSize: 12.0,
-                  ),
+                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        color: ColorManager.kGrey,
+                        fontSize: 12.0,
+                      ),
                 ),
                 const SizedBox(
                   height: 5.0,
                 ),
                 Text(
                   product.category,
-                  style: const TextStyle(
-                    color: ColorManager.kBlack,
-                    fontSize: 18.0,
-                  ),
+                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        color: ColorManager.kBlack,
+                        fontSize: 18.0,
+                      ),
                 ),
                 const SizedBox(
                   height: 5.0,
                 ),
-                Text(
-                  '${product.price}\$',
-                  style: TextStyle(
-                    color: isNew ? ColorManager.kBlack : ColorManager.kRed,
-                    fontSize: 14.0,
-                  ),
-                ),
+                isNew
+                    ? Text(
+                        '${product.price}\$',
+                        style: const TextStyle(
+                          color: ColorManager.kBlack,
+                          fontSize: 14.0,
+                        ),
+                      )
+                    : Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '${product.price}\$  ',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .copyWith(
+                                    color: ColorManager.kGrey,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                            ),
+                            TextSpan(
+                              text:
+                                  '  ${product.price * (product.discountValue) / 100}\$',
+                              style: const TextStyle(
+                                color: ColorManager.kRed,
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
               ],
             ),
           ),

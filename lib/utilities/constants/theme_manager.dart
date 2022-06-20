@@ -57,5 +57,17 @@ class ThemeManager {
         ),
       ),
     ),
+    textTheme: const TextTheme(
+      headline1: TextStyle(
+        fontSize: 35.0,
+        fontWeight: FontWeight.bold,
+        color: ColorManager.kBlack,
+      ),
+      subtitle1: TextStyle(
+        fontSize: 12.0,
+        fontWeight: FontWeight.normal,
+        color: ColorManager.kGrey,
+      ),
+    ),
   );
 }
