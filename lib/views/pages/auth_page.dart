@@ -4,7 +4,6 @@ import 'package:flutter_ecommerce/utilities/enums.dart';
 import 'package:flutter_ecommerce/utilities/routes.dart';
 import 'package:flutter_ecommerce/views/widgets/main_button.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/default_toast.dart';
 
 class AuthPage extends StatefulWidget {
@@ -69,7 +68,6 @@ class _AuthPageState extends State<AuthPage> {
           .showToast();
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
