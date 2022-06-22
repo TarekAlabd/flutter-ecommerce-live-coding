@@ -125,7 +125,7 @@ class _AuthPageState extends State<AuthPage> {
                             : 'Register',
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            _submit2(model);
+                            _submit(model);
                           }
                         },
                       ),
