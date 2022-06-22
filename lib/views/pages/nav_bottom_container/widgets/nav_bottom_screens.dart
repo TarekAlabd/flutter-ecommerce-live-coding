@@ -7,10 +7,10 @@ class NavBottomScreen {
   }
 
   static final List<Widget> _screens = [
-    HomePage(),
-    ShopPage(),
-    BagsPage(),
-    FavoritesPage(),
-    ProfilePage(),
+    const HomePage(),
+    const ShopPage(),
+    const BagsPage(),
+    const FavoritesPage(),
+    const ProfilePage(),
   ];
 }

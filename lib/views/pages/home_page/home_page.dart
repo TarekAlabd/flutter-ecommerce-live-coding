@@ -32,6 +32,7 @@ class HomePage extends StatelessWidget {
                     return ProductItem(
                         product: dummyProducts[index],
                         isNew: false,
+                        isFavorite: index % 2 == 0 ? true : false,
                         addToFavorites: () {
                           debugPrint('pressed');
                         });

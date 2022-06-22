@@ -1,16 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_ecommerce/utilities/routes.dart';
-import 'package:flutter_ecommerce/views/pages/bottom_navbar.dart';
-import 'package:flutter_ecommerce/views/pages/landing_page.dart';
 import 'package:flutter_ecommerce/views/pages/screens.dart';
 
 Route<dynamic> onGenerate(RouteSettings settings) {
   switch (settings.name) {
-    case AppRoutes.navBottomContainerPageRoute:
+    case AppRoutes.loginPageRoute:
       return CupertinoPageRoute(
-
-        builder: (_) => const NavigationBottomContainer(),
-
         builder: (_) => const AuthPage(),
         settings: settings,
       );

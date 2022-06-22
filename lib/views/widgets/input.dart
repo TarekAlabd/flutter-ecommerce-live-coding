@@ -47,9 +47,9 @@ class Input extends StatelessWidget {
       onChanged: onChange,
       validator: onValidate,
       name: name,
-      style: TextStyle(
-        color: isReadOnly ? ColorManager.kBlack : ColorManager.kGrey,
-      ),
+      style: Theme.of(context).textTheme.subtitle2!.copyWith(
+            color: isReadOnly ? ColorManager.kBlack : ColorManager.kGrey,
+          ),
       decoration: InputDecoration(
         filled: true,
         fillColor: ColorManager.kWhite,

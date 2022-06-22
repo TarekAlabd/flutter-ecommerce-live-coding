@@ -13,7 +13,7 @@ class ListItemHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -72,8 +72,8 @@ class ListItemHome extends StatelessWidget {
           Text(
             '${product.price}\$',
             style: Theme.of(context).textTheme.subtitle2!.copyWith(
-              color: Colors.grey,
-            ),
+                  color: Colors.grey,
+                ),
           ),
         ],
       ),

@@ -28,11 +28,19 @@ class HomeHeader extends StatelessWidget {
               children: [
                 Text(
                   mainTitle,
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                        fontSize: 35.0,
+                        fontWeight: FontWeight.bold,
+                        color: ColorManager.kBlack,
+                      ),
                 ),
                 Text(
                   subTitle,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.normal,
+                        color: ColorManager.kGrey,
+                      ),
                 ),
               ],
             ),
@@ -42,13 +50,13 @@ class HomeHeader extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: viewAll,
-                child: const Text(
+                child: Text(
                   'View all',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.normal,
-                    color: ColorManager.kBlack,
-                  ),
+                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.normal,
+                        color: ColorManager.kBlack,
+                      ),
                 ),
               ),
             )

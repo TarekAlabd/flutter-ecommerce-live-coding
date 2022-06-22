@@ -9,10 +9,12 @@ class ProductItem extends StatelessWidget {
     required this.product,
     required this.isNew,
     required this.addToFavorites,
+    this.isFavorite = false,
   }) : super(key: key);
   final Product product;
   final bool isNew;
   final VoidCallback addToFavorites;
+  final bool isFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +82,10 @@ class ProductItem extends StatelessWidget {
                 radius: 25.0,
                 child: InkWell(
                   onTap: addToFavorites,
-                  child: const Icon(
-                    Icons.favorite_border_outlined,
-                    size: 20.0,
-                    color: ColorManager.kGrey,
+                  child: Icon(
+                    Icons.favorite,
+                    size: 25.0,
+                    color: isFavorite ? ColorManager.kRed : ColorManager.kGrey,
                   ),
                 ),
               ),

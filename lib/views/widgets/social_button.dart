@@ -15,19 +15,19 @@ class SocialButton extends StatelessWidget {
     return InkWell(
       onTap: onPress,
       child: Container(
-        child: Center(
-          child: SvgPicture.asset(
-            iconName,
-            width: 40.0,
-            height: 40.0,
-          ),
-        ),
         width: 80.0,
         height: 80.0,
         decoration: BoxDecoration(
           color: ColorManager.kWhite,
           borderRadius: BorderRadius.circular(
             24.0,
+          ),
+        ),
+        child: Center(
+          child: SvgPicture.asset(
+            iconName,
+            width: 40.0,
+            height: 40.0,
           ),
         ),
       ),
