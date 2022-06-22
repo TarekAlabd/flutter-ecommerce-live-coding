@@ -66,12 +66,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
   @override
   Widget build(BuildContext context) {
 
-    final auth = Provider.of<AuthBase>(context, listen: true);
 
-    return ChangeNotifierProvider<AuthController>(
-      create: (_) => AuthController(auth: auth),
-      child: Scaffold(
-        body: PersistentTabView(
+    return  Scaffold(
+          body: PersistentTabView(
           context,
           controller: _bottomNavbarController,
           screens: _buildScreens(),
@@ -99,7 +96,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
           ),
           navBarStyle: NavBarStyle.style1, // Choose the nav bar style with this property.
         ),
-      ),
-    );
+      );
   }
 }
