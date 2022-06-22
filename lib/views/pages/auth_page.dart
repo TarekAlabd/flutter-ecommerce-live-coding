@@ -4,7 +4,6 @@ import 'package:flutter_ecommerce/utilities/enums.dart';
 import 'package:flutter_ecommerce/utilities/routes.dart';
 import 'package:flutter_ecommerce/views/widgets/main_button.dart';
 import 'package:provider/provider.dart';
-import '../widgets/default_toast.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -31,7 +30,7 @@ class _AuthPageState extends State<AuthPage> {
     try {
       await model.submit();
       if (!mounted) return;
-      Navigator.of(context).pushNamed(AppRoutes.bottomNavBarRoute);
+      Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
     } catch (e) {
       // TODO: We will refactor this code into another widget in the next session
       showDialog(
@@ -53,19 +52,6 @@ class _AuthPageState extends State<AuthPage> {
           ],
         ),
       );
-    }
-  }
-
-  Future<void> _submit2(AuthController model) async {
-    try {
-      await model.submit();
-      const DefaultToast(message: 'successfully logged in', state: ToastStates.success)
-          .showToast();
-      if (!mounted) return;
-      Navigator.of(context).pushNamed(AppRoutes.bottomNavBarRoute);
-    } catch (e) {
-      const DefaultToast(message: 'incorrect email or password', state: ToastStates.error)
-          .showToast();
     }
   }
 
