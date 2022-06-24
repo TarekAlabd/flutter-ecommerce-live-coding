@@ -52,7 +52,7 @@ class AuthController with ChangeNotifier {
     this.authFormType = authFormType ?? this.authFormType;
     notifyListeners();
   }
-
+  
   Future<void> logout() async {
     try {
       await auth.logout();
