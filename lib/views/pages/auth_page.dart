@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/controllers/auth_controller.dart';
 import 'package:flutter_ecommerce/utilities/enums.dart';
-import 'package:flutter_ecommerce/utilities/routes.dart';
 import 'package:flutter_ecommerce/views/widgets/main_button.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +29,6 @@ class _AuthPageState extends State<AuthPage> {
     try {
       await model.submit();
       if (!mounted) return;
-      Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
     } catch (e) {
       // TODO: We will refactor this code into another widget in the next session
       showDialog(
