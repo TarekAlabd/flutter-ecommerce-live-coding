@@ -11,7 +11,7 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthBase>(context, listen: false);
+    final auth = Provider.of<AuthBase>(context);
     return StreamBuilder<User?>(
       stream: auth.authStateChanges(),
       builder: (context, snapshot) {
@@ -23,7 +23,10 @@ class LandingPage extends StatelessWidget {
               child: const AuthPage(),
             );
           }
-          return const BottomNavbar();
+          return ChangeNotifierProvider<AuthController>(
+            create: (_) => AuthController(auth: auth),
+            child: const BottomNavbar(),
+          );
         }
         // TODO: We will refactor this to make one component for loading
         return const Scaffold(
