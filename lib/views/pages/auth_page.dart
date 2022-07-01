@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/controllers/auth_controller.dart';
+import 'package:flutter_ecommerce/utilities/constants/image_manager.dart';
 import 'package:flutter_ecommerce/utilities/enums.dart';
 import 'package:flutter_ecommerce/views/widgets/main_button.dart';
+import 'package:flutter_ecommerce/views/widgets/social_button.dart';
 import 'package:provider/provider.dart';
 
 class AuthPage extends StatefulWidget {
@@ -155,24 +157,20 @@ class _AuthPageState extends State<AuthPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16.0),
-                              color: Colors.white,
-                            ),
-                            child: const Icon(Icons.add),
+                          SocialButton(
+                            iconName: ImageManager.googleLogo,
+                            onPress: () {
+                              debugPrint('pressed');
+                            },
                           ),
-                          const SizedBox(width: 16.0),
-                          Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16.0),
-                              color: Colors.white,
-                            ),
-                            child: const Icon(Icons.add),
+                          const SizedBox(
+                            width: 16.0,
+                          ),
+                          SocialButton(
+                            iconName: ImageManager.facebookLogo,
+                            onPress: () {
+                              debugPrint('pressed');
+                            },
                           ),
                         ],
                       ),

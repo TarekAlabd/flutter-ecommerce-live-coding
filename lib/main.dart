@@ -1,5 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/firebase_options.dart';
+import 'package:flutter_ecommerce/utilities/constants/theme_manager.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:flutter_ecommerce/services/auth.dart';
 import 'package:flutter_ecommerce/utilities/router.dart';
 import 'package:flutter_ecommerce/utilities/routes.dart';
@@ -7,7 +10,9 @@ import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -22,44 +27,12 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Ecommerce App',
-        theme: ThemeData(
-            scaffoldBackgroundColor: const Color(0xFFE5E5E5),
-            primaryColor: Colors.red,
-            inputDecorationTheme: InputDecorationTheme(
-              labelStyle: Theme.of(context).textTheme.subtitle1,
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(2.0),
-                borderSide: const BorderSide(
-                  color: Colors.grey,
-                ),
-              ),
-              disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(2.0),
-                borderSide: const BorderSide(
-                  color: Colors.grey,
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(2.0),
-                borderSide: const BorderSide(
-                  color: Colors.grey,
-                ),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(2.0),
-                borderSide: const BorderSide(
-                  color: Colors.red,
-                ),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(2.0),
-                borderSide: const BorderSide(
-                  color: Colors.red,
-                ),
-              ),
-            )),
+        theme: ThemeManager.lightTheme,
+        localizationsDelegates: const [
+          FormBuilderLocalizations.delegate,
+        ],
         onGenerateRoute: onGenerate,
-        initialRoute: AppRoutes.landingPageRoute,
+        initialRoute: AppRoutes.bottomNavBarRoute,
       ),
     );
   }
