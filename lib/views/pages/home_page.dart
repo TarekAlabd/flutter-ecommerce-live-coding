@@ -2,50 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/product.dart';
 import 'package:flutter_ecommerce/utilities/assets.dart';
+import 'package:flutter_ecommerce/views/widgets/list_header.dart';
 import 'package:flutter_ecommerce/views/widgets/list_item_home.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  /// TODO: Temp code till refactor to a separate class with a separate context
-  Widget _buildHeaderOfList(
-    BuildContext context, {
-    required String title,
-    VoidCallback? onTap,
-    required String description,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.headline4!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-            ),
-            InkWell(
-              onTap: onTap,
-              child: Text(
-                'View All',
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-            ),
-          ],
-        ),
-        Text(
-          description,
-          style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                color: Colors.grey,
-              ),
-        ),
-      ],
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,8 +53,7 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
               children: [
-                _buildHeaderOfList(
-                  context,
+                const ListHeader(
                   title: 'Sale',
                   description: 'Super Summer Sale!!',
                 ),
@@ -124,8 +85,7 @@ class HomePage extends StatelessWidget {
                         );
                       }),
                 ),
-                _buildHeaderOfList(
-                  context,
+                const ListHeader(
                   title: 'New',
                   description: 'Super New Products!!',
                 ),
