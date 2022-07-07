@@ -6,18 +6,18 @@ class AuthController with ChangeNotifier {
   final AuthBase auth;
   String email;
   String password;
-  AuthFormType authFormType;
+  AuthTypes authFormType;
 
   AuthController({
     required this.auth,
     this.email = '',
     this.password = '',
-    this.authFormType = AuthFormType.login,
+    this.authFormType = AuthTypes.login,
   });
 
   Future<void> submit() async {
     try {
-      if (authFormType == AuthFormType.login) {
+      if (authFormType == AuthTypes.login) {
         await auth.loginWithEmailAndPassword(email, password);
       } else {
         await auth.signUpWithEmailAndPassword(email, password);
@@ -28,9 +28,9 @@ class AuthController with ChangeNotifier {
   }
 
   void toggleFormType() {
-    final formType = authFormType == AuthFormType.login
-        ? AuthFormType.register
-        : AuthFormType.login;
+    final formType = authFormType == AuthTypes.login
+        ? AuthTypes.register
+        : AuthTypes.login;
     copyWith(
       email: '',
       password: '',
@@ -45,11 +45,19 @@ class AuthController with ChangeNotifier {
   void copyWith({
     String? email,
     String? password,
-    AuthFormType? authFormType,
+    AuthTypes? authFormType,
   }) {
     this.email = email ?? this.email;
     this.password = password ?? this.password;
     this.authFormType = authFormType ?? this.authFormType;
     notifyListeners();
+  }
+  Future<void> logout() async {
+    try {
+      await auth.logout;
+    } catch (ex) {
+      debugPrint('exception : $ex');
+      rethrow;
+    }
   }
 }

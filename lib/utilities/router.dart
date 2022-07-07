@@ -6,14 +6,14 @@ import 'package:flutter_ecommerce/views/pages/auth_page.dart';
 
 Route<dynamic> onGenerate(RouteSettings settings) {
   switch (settings.name) {
-    case AppRoutes.loginPageRoute:
+    case AppRoutes.authPageRoute:
       return CupertinoPageRoute(
         builder: (_) => const AuthPage(),
         settings: settings,
       );
     case AppRoutes.bottomNavBarRoute:
       return CupertinoPageRoute(
-        builder: (_) => const BottomNavbar(),
+        builder: (_) => const BottomNavBar(),
         settings: settings,
       );
     case AppRoutes.landingPageRoute:

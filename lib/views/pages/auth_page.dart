@@ -1,55 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce/controllers/auth_controller.dart';
-import 'package:flutter_ecommerce/utilities/enums.dart';
-import 'package:flutter_ecommerce/utilities/routes.dart';
-import 'package:flutter_ecommerce/views/widgets/main_button.dart';
+
 import 'package:provider/provider.dart';
+ 
+import '../../controllers/auth_controller.dart';
+import '../../services/auth.dart';
+import '../../utilities/assets.dart';
+import '../../utilities/colors.dart';
+import '../../utilities/enums.dart';
+import '../../utilities/form_validator.dart';
+import '../../utilities/routes.dart';
+import '../../utilities/strings.dart';
+import '../widgets/custom_buttons/primary_icon_button.dart';
+import '../widgets/custom_buttons/white_image_button.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
+  State<StatefulWidget> createState() => _AuthPageState();
 }
 
 class _AuthPageState extends State<AuthPage> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _emailFocusNode = FocusNode();
-  final _passwordFocusNode = FocusNode();
+  final formkey_ = GlobalKey<FormState>();
+  final emailController_ = TextEditingController();
+  final emailFocusNode_ = FocusNode();
+  final passwordController_ = TextEditingController();
+  final passwordFocusNode_ = FocusNode();
+
+  //var authType = AuthTypes.login;
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    emailController_.dispose();
+    passwordController_.dispose();
     super.dispose();
   }
 
   Future<void> _submit(AuthController model) async {
     try {
       await model.submit();
-      if (!mounted) return;
-      Navigator.of(context).pushNamed(AppRoutes.bottomNavBarRoute);
-    } catch (e) {
-      // TODO: We will refactor this code into another widget in the next session
+      if(!mounted) return;
+      //Navigator.of(context).pushNamed(AppRoute.landingPageRoute);
+    } catch (ex) {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
           title: Text(
-            'Error!',
+            'Error !',
             style: Theme.of(context).textTheme.headline6,
           ),
           content: Text(
-            e.toString(),
-            style: Theme.of(context).textTheme.subtitle1,
+            ex.toString(),
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1
+                ?.copyWith(color: Colors.red),
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
-            ),
-          ],
         ),
       );
     }
@@ -57,135 +63,179 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    return Consumer<AuthController>(
-      builder: (_, model, __) {
-        return Scaffold(
-          resizeToAvoidBottomInset: true,
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 60.0,
-                horizontal: 32.0,
-              ),
-              child: Form(
-                key: _formKey,
-                child: SingleChildScrollView(
+    final auth = Provider.of<AuthBase>(context);
+    return ChangeNotifierProvider<AuthController>(
+      create: (_) => AuthController(auth: auth),
+      child: Consumer<AuthController>(
+        builder: (_, model, __) {
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 40.0,
+                  horizontal: 32.0,
+                ),
+                child: Form(
+                  key: formkey_,
                   child: Column(
+                    //mainAxisAlignment: MainAxisAlignment.center,
+                    //Horizntal Aligment
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        model.authFormType == AuthFormType.login
-                            ? 'Login'
-                            : 'Register',
-                        style: Theme.of(context).textTheme.headline4,
+                          model.authFormType == AuthTypes.login
+                              ? Strings.login
+                              : Strings.register,
+                          style: Theme.of(context).textTheme.headline4),
+                      const SizedBox(
+                        height: 8,
                       ),
-                      const SizedBox(height: 80.0),
-                      TextFormField(
-                        controller: _emailController,
-                        focusNode: _emailFocusNode,
-                        onEditingComplete: () => FocusScope.of(context)
-                            .requestFocus(_passwordFocusNode),
-                        textInputAction: TextInputAction.next,
-                        onChanged: model.updateEmail,
-                        validator: (val) =>
-                            val!.isEmpty ? 'Please enter your email!' : null,
-                        decoration: const InputDecoration(
-                          labelText: 'Email',
-                          hintText: 'Enter your email!',
-                        ),
+                      Text('Please Enter Your Access Info',
+                          style: Theme.of(context).textTheme.bodyMedium),
+                      const SizedBox(
+                        height: 50,
                       ),
-                      const SizedBox(height: 24.0),
                       TextFormField(
-                        controller: _passwordController,
-                        focusNode: _passwordFocusNode,
-                        validator: (val) =>
-                            val!.isEmpty ? 'Please enter your password!' : null,
-                        onChanged: model.updatePassword,
+                          controller: emailController_,
+                          focusNode: emailFocusNode_,
+                          onChanged: model.updateEmail,
+                          onEditingComplete: () => FocusScope.of(context)
+                              .requestFocus(passwordFocusNode_),
+                          validator: (val) {
+                            if (val!.isEmpty) {
+                              return Strings.formHint + Strings.email;
+                            } else {
+                              if (!FormValidator.isValidEmail(val)) {
+                                return "${Strings.formHint} a valid ${Strings.email}";
+                              }
+                            }
+                            return null;
+                          },
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: const InputDecoration(
+                              labelText: Strings.email,
+                              hintText: Strings.formHint + Strings.email)),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        validator: (val) => val!.isEmpty
+                            ? Strings.formHint + Strings.password
+                            : null,
                         obscureText: true,
+                        controller: passwordController_,
+                        focusNode: passwordFocusNode_,
+                        onChanged: model.updatePassword,
+                        keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
-                          labelText: 'Password',
-                          hintText: 'Enter your pasword!',
-                        ),
+                            labelText: Strings.password,
+                            hintText: Strings.formHint + Strings.password),
                       ),
-                      const SizedBox(height: 16.0),
-                      if (model.authFormType == AuthFormType.login)
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      if (model.authFormType == AuthTypes.login)
                         Align(
                           alignment: Alignment.topRight,
                           child: InkWell(
-                            child: const Text('Forgot your password?'),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, AppRoutes.forgetPasswordPageRoute);
+                            },
+                            child: const Text(
+                              Strings.forgetPassword + '? ',
+                              textAlign: TextAlign.end,
+                            ),
                           ),
                         ),
-                      const SizedBox(height: 24.0),
-                      MainButton(
-                        text: model.authFormType == AuthFormType.login
-                            ? 'Login'
-                            : 'Register',
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            _submit(model);
-                          }
-                        },
+                      const SizedBox(
+                        height: 12,
                       ),
-                      const SizedBox(height: 16.0),
-                      Align(
-                        alignment: Alignment.center,
-                        child: InkWell(
-                          child: Text(
-                            model.authFormType == AuthFormType.login
-                                ? 'Don\'t have an account? Register'
-                                : 'Have an account? Login',
-                          ),
-                          onTap: () {
-                            _formKey.currentState!.reset();
-                            model.toggleFormType();
+                      SizedBox(
+                        height: 45,
+                        width: double.infinity,
+                        child: PrimaryIconButton(
+                          label_: model.authFormType == AuthTypes.login
+                              ? Strings.login
+                              : Strings.register,
+                          icon_: const Icon(Icons.login),
+                          onTapAction: () {
+                            bool res = formkey_.currentState!.validate();
+                            if (res) {
+                              _submit(model);
+                            }
                           },
                         ),
                       ),
-                      SizedBox(height: size.height * 0.09),
-                      Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            model.authFormType == AuthFormType.login
-                                ? 'Or Login with'
-                                : 'Or Register with',
-                            style: Theme.of(context).textTheme.subtitle1,
-                          )),
-                      const SizedBox(height: 16.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16.0),
-                              color: Colors.white,
-                            ),
-                            child: const Icon(Icons.add),
-                          ),
-                          const SizedBox(width: 16.0),
-                          Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16.0),
-                              color: Colors.white,
-                            ),
-                            child: const Icon(Icons.add),
-                          ),
-                        ],
+                      const SizedBox(
+                        height: 16,
                       ),
+                      Center(
+                        //alignment: Alignment.topRight,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              model.authFormType == AuthTypes.login
+                                  ? Strings.dontHaveAcc
+                                  : Strings.alreadyHaveAcc,
+                            ),
+                            InkWell(
+                              child: Text(
+                                model.authFormType == AuthTypes.login
+                                    ? Strings.register
+                                    : Strings.login,
+                                style: const TextStyle(color: primaryColor),
+                              ),
+                              onTap: () {
+                                formkey_.currentState!.reset();
+                                debugPrint(model.authFormType.toString());
+
+                                model.toggleFormType();
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Center(
+                          child: Text(
+                            "Or ${model.authFormType == AuthTypes.login ? Strings.login : Strings.register} with social",
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            WhiteImagButton(
+                                imageUrl_: AppAssets.googleAuthAsset,
+                                onTapAction: () {}),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: WhiteImagButton(
+                                imageUrl_: AppAssets.facebookAuthAsset,
+                                onTapAction: () {},
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

@@ -20,52 +20,52 @@ class Product {
   });
 }
 
-List<Product> dummyProducts = [
-  Product(
-    id: '1',
-    title: 'T-shirt',
-    price: 300,
-    imgUrl: AppAssets.tempProductAsset1,
-    category: 'Clothes',
-    discountValue: 20,
-  ),
-  Product(
-    id: '1',
-    title: 'T-shirt',
-    price: 300,
-    imgUrl: AppAssets.tempProductAsset1,
-    category: 'Clothes',
-    discountValue: 20,
-  ),
-  Product(
-    id: '1',
-    title: 'T-shirt',
-    price: 300,
-    imgUrl: AppAssets.tempProductAsset1,
-    category: 'Clothes',
-    discountValue: 20,
-  ),
-  Product(
-    id: '1',
-    title: 'T-shirt',
-    price: 300,
-    imgUrl: AppAssets.tempProductAsset1,
-    category: 'Clothes',
-    discountValue: 20,
-  ),
-  Product(
-    id: '1',
-    title: 'T-shirt',
-    price: 300,
-    imgUrl: AppAssets.tempProductAsset1,
-    category: 'Clothes',
-  ),
-  Product(
-    id: '1',
-    title: 'T-shirt',
-    price: 300,
-    imgUrl: AppAssets.tempProductAsset1,
-    category: 'Clothes',
-    discountValue: 20,
-  ),
-];
+// List<Product> dummyProducts = [
+//   Product(
+//     id: '1',
+//     title: 'T-shirt',
+//     price: 300,
+//     imgUrl: AppAssets.tempProductAsset1,
+//     category: 'Clothes',
+//     discountValue: 20,
+//   ),
+//   Product(
+//     id: '1',
+//     title: 'T-shirt',
+//     price: 300,
+//     imgUrl: AppAssets.tempProductAsset1,
+//     category: 'Clothes',
+//     discountValue: 20,
+//   ),
+//   Product(
+//     id: '1',
+//     title: 'T-shirt',
+//     price: 300,
+//     imgUrl: AppAssets.tempProductAsset1,
+//     category: 'Clothes',
+//     discountValue: 20,
+//   ),
+//   Product(
+//     id: '1',
+//     title: 'T-shirt',
+//     price: 300,
+//     imgUrl: AppAssets.tempProductAsset1,
+//     category: 'Clothes',
+//     discountValue: 20,
+//   ),
+//   Product(
+//     id: '1',
+//     title: 'T-shirt',
+//     price: 300,
+//     imgUrl: AppAssets.tempProductAsset1,
+//     category: 'Clothes',
+//   ),
+//   Product(
+//     id: '1',
+//     title: 'T-shirt',
+//     price: 300,
+//     imgUrl: AppAssets.tempProductAsset1,
+//     category: 'Clothes',
+//     discountValue: 20,
+//   ),
+// ];

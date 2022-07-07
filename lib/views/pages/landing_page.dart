@@ -1,37 +1,42 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce/controllers/auth_controller.dart';
-import 'package:flutter_ecommerce/services/auth.dart';
-import 'package:flutter_ecommerce/views/pages/auth_page.dart';
-import 'package:flutter_ecommerce/views/pages/bottom_navbar.dart';
+import 'package:flutter/material.dart'; 
 import 'package:provider/provider.dart';
+
+import '../../controllers/auth_controller.dart';
+import '../../controllers/database_controller.dart';
+import '../../services/auth.dart';
+import 'auth_page.dart';
+import 'bottom_navbar.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthBase>(context, listen: false);
+    var auth = Provider.of<AuthBase>(context);
     return StreamBuilder<User?>(
-      stream: auth.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.active) {
-          final user = snapshot.data;
-          if (user == null) {
+        stream: auth.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            final user = snapshot.data;
+            var targetActivity;
+            if (user == null) {
+              targetActivity = const AuthPage();
+            } else {
+              targetActivity = Provider<Database>(
+                  create: (_) => FirestoreDatabase(user.uid),
+                  child: const BottomNavBar());
+            }
             return ChangeNotifierProvider<AuthController>(
               create: (_) => AuthController(auth: auth),
-              child: const AuthPage(),
+              child: targetActivity,
             );
           }
-          return const BottomNavbar();
-        }
-        // TODO: We will refactor this to make one component for loading
-        return const Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      },
-    );
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        });
   }
 }

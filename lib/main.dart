@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Ecommerce App',
         theme: ThemeData(
-            scaffoldBackgroundColor: const Color(0xFFE5E5E5),
+            scaffoldBackgroundColor: Color.fromARGB(255, 244, 243, 243),
             primaryColor: Colors.red,
             inputDecorationTheme: InputDecorationTheme(
               labelStyle: Theme.of(context).textTheme.subtitle1,
