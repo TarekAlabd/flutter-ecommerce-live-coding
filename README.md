@@ -31,3 +31,8 @@ The main reason for this playlist is to simulate a part of the process we take w
  
  #### gride view
  <img src="https://user-images.githubusercontent.com/27786622/177488366-d2631b1c-ddc1-4cad-b9cf-3b0d0ddf4fad.png" width="350" > 
+
+### 5) My Cart Page
+  <img src="https://user-images.githubusercontent.com/27786622/177896555-7cf800aa-4c42-4702-ac2e-e58496ce4aa3.png" width="350" > 
+
+ 
