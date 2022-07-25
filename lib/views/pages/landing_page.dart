@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/controllers/auth_controller.dart';
+import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/services/auth.dart';
 import 'package:flutter_ecommerce/views/pages/auth_page.dart';
 import 'package:flutter_ecommerce/views/pages/bottom_navbar.dart';
@@ -25,7 +26,9 @@ class LandingPage extends StatelessWidget {
           }
           return ChangeNotifierProvider<AuthController>(
             create: (_) => AuthController(auth: auth),
-            child: const BottomNavbar(),
+            child: Provider<Database>(
+              create: (_) => FirestoreDatabase(user.uid),
+              child: const BottomNavbar()),
           );
         }
         // TODO: We will refactor this to make one component for loading
