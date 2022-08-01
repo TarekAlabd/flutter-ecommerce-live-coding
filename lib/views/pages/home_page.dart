@@ -58,21 +58,31 @@ class HomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 SizedBox(
-                  height: size.height * 0.4,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: dummyProducts
-                        .map(
-                          (e) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListItemHome(
-                              product: e,
-                              isNew: false,
-                            ),
-                          ),
-                        )
-                        .toList(),
-                  ),
+                  height: 300,
+                  child: StreamBuilder<List<Product>>(
+                      stream: database.salesProductsStream(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.active) {
+                          final products = snapshot.data;
+                          if (products == null || products.isEmpty) {
+                            return const Center(
+                              child: Text('No Data Available!'),
+                            );
+                          }
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: products.length,
+                            itemBuilder: (_, int index) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ListItemHome(product: products[index]),
+                                  ),
+                          );
+                        }
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }),
                 ),
                 HeaderOfList(
                   onTap: () {},
@@ -81,22 +91,31 @@ class HomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 SizedBox(
-                  height: size.height * 0.4,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: dummyProducts
-                        .map(
-                          (e) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListItemHome(
-                              product: e,
-                              isNew: true,
-                              isFavorite: true,
-                            ),
-                          ),
-                        )
-                        .toList(),
-                  ),
+                  height: 300,
+                  child: StreamBuilder<List<Product>>(
+                      stream: database.newProductsStream(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.active) {
+                          final products = snapshot.data;
+                          if (products == null || products.isEmpty) {
+                            return const Center(
+                              child: Text('No Data Available!'),
+                            );
+                          }
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: products.length,
+                            itemBuilder: (_, int index) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ListItemHome(product: products[index]),
+                                  ),
+                          );
+                        }
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }),
                 ),
               ],
             ),
