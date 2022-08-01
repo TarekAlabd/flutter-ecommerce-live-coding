@@ -62,7 +62,7 @@ class HomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 SizedBox(
-                  height: 350,
+                  height: 330,
                   child: StreamBuilder<List<Product>>(
                       stream: database.salesProductsStream(),
                       builder: (context, snapshot) {
@@ -91,6 +91,7 @@ class HomePage extends StatelessWidget {
                         );
                       }),
                 ),
+                const SizedBox(height: 12.0),
                 HeaderOfList(
                   onTap: () {},
                   title: 'New',
@@ -98,7 +99,7 @@ class HomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 SizedBox(
-                  height: 350,
+                  height: 330,
                   child: StreamBuilder<List<Product>>(
                       stream: database.newProductsStream(),
                       builder: (context, snapshot) {

@@ -25,8 +25,7 @@ class ListItemHome extends StatelessWidget {
         AppRoutes.productDetailsRoute,
         arguments: product,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
           Stack(
             children: [
@@ -63,89 +62,112 @@ class ListItemHome extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                left: size.width * 0.35,
-                bottom: 5,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 5,
-                        color: Colors.grey,
-                        spreadRadius: 2,
-                      )
-                    ],
-                  ),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 25.0,
-                    child: InkWell(
-                      onTap: addToFavorites,
-                      child: Icon(
-                        Icons.favorite,
-                        size: 25.0,
-                        color: isFavorite ? Colors.red : Colors.grey,
-                      ),
-                    ),
+            ],
+          ),
+          Positioned(
+            left: size.width * 0.38,
+            bottom: size.height * 0.12,
+            child: Container(
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 5,
+                    color: Colors.grey,
+                    spreadRadius: 2,
+                  )
+                ],
+              ),
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 20.0,
+                child: InkWell(
+                  onTap: addToFavorites,
+                  child: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_outline,
+                    size: 20.0,
+                    color: isFavorite ? Colors.red : Colors.grey,
                   ),
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: 8.0),
-          RatingBarIndicator(
-            itemSize: 25.0,
-            rating: product.rate?.toDouble() ?? 4.0,
-            itemBuilder: (context, _) => const Icon(
-              Icons.star,
-              color: Colors.amber,
             ),
-            direction: Axis.horizontal,
-            itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
           ),
-          const SizedBox(height: 8.0),
-          Text(
-            product.category,
-            style: Theme.of(context).textTheme.caption!.copyWith(
-                  color: Colors.grey,
+          Positioned(
+            bottom: 5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    RatingBarIndicator(
+                      itemSize: 25.0,
+                      rating: product.rate?.toDouble() ?? 4.0,
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      direction: Axis.horizontal,
+                    ),
+                    const SizedBox(width: 4.0),
+                    Text(
+                      '(100)',
+                      style: Theme.of(context).textTheme.caption!.copyWith(
+                            color: Colors.grey,
+                          ),
+                    ),
+                  ],
                 ),
-          ),
-          const SizedBox(height: 6.0),
-          Text(
-            product.title,
-            style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
-          const SizedBox(height: 6.0),
-          isNew
-              ? Text(
-                  '${product.price}\$',
-                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                const SizedBox(height: 8.0),
+                Text(
+                  product.category,
+                  style: Theme.of(context).textTheme.caption!.copyWith(
                         color: Colors.grey,
                       ),
-                )
-              : Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: '${product.price}\$  ',
+                ),
+                const SizedBox(height: 6.0),
+                Text(
+                  product.title,
+                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                const SizedBox(height: 6.0),
+                isNew
+                    ? Text(
+                        '${product.price}\$',
                         style: Theme.of(context).textTheme.subtitle2!.copyWith(
                               color: Colors.grey,
-                              decoration: TextDecoration.lineThrough,
                             ),
-                      ),
-                      TextSpan(
-                        text:
-                            '  ${product.price * (product.discountValue!) / 100}\$',
-                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                              color: Colors.red,
+                      )
+                    : Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '${product.price}\$  ',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle2!
+                                  .copyWith(
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
                             ),
+                            TextSpan(
+                              text:
+                                  '  ${product.price * (product.discountValue!) / 100}\$',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle2!
+                                  .copyWith(
+                                    color: Colors.red,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                )
+              ],
+            ),
+          )
         ],
       ),
     );
