@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/models/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_ecommerce/utilities/assets.dart';
+import 'package:flutter_ecommerce/utilities/routes.dart';
 
 class ListItemHome extends StatelessWidget {
   final Product product;
@@ -18,8 +20,11 @@ class ListItemHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return DecoratedBox(
-      decoration: BoxDecoration(),
+    return InkWell(
+      onTap: () => Navigator.of(context, rootNavigator: true).pushNamed(
+        AppRoutes.productDetailsRoute,
+        arguments: product,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

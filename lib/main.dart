@@ -25,6 +25,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             scaffoldBackgroundColor: const Color(0xFFE5E5E5),
             primaryColor: Colors.red,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.white,
+              elevation: 2,
+              iconTheme: IconThemeData(
+                color: Colors.black,
+              ),
+            ),
             inputDecorationTheme: InputDecorationTheme(
               labelStyle: Theme.of(context).textTheme.subtitle1,
               focusedBorder: OutlineInputBorder(
