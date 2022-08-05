@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/controllers/database_controller.dart';
+import 'package:flutter_ecommerce/models/user_data.dart';
 import 'package:flutter_ecommerce/services/auth.dart';
+import 'package:flutter_ecommerce/utilities/constants.dart';
 import 'package:flutter_ecommerce/utilities/enums.dart';
 
 class AuthController with ChangeNotifier {
@@ -7,6 +10,8 @@ class AuthController with ChangeNotifier {
   String email;
   String password;
   AuthFormType authFormType;
+  // TODO: It's not a best practice thing but it's temporary
+  final database = FirestoreDatabase('123');
 
   AuthController({
     required this.auth,
@@ -20,7 +25,11 @@ class AuthController with ChangeNotifier {
       if (authFormType == AuthFormType.login) {
         await auth.loginWithEmailAndPassword(email, password);
       } else {
-        await auth.signUpWithEmailAndPassword(email, password);
+        final user = await auth.signUpWithEmailAndPassword(email, password);
+        await database.setUserData(UserData(
+          uid: user?.uid ?? documentIdFromLocalData(),
+          email: email,
+        ));
       }
     } catch (e) {
       rethrow;
@@ -52,7 +61,7 @@ class AuthController with ChangeNotifier {
     this.authFormType = authFormType ?? this.authFormType;
     notifyListeners();
   }
-  
+
   Future<void> logout() async {
     try {
       await auth.logout();
