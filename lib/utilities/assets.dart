@@ -10,4 +10,8 @@ class AppAssets {
   /// Authentication Page Images
   static const facebookIcon = 'assets/facebook-svgrepo-com.svg';
   static const googleIcon = 'assets/google-svgrepo-com.svg';
+
+  /// Checkout Images
+  static const mastercardIcon =
+      'https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png';
 }

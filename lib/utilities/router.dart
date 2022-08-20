@@ -3,6 +3,7 @@ import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/product.dart';
 import 'package:flutter_ecommerce/utilities/routes.dart';
 import 'package:flutter_ecommerce/views/pages/bottom_navbar.dart';
+import 'package:flutter_ecommerce/views/pages/checkout/checkout_page.dart';
 import 'package:flutter_ecommerce/views/pages/landing_page.dart';
 import 'package:flutter_ecommerce/views/pages/auth_page.dart';
 import 'package:flutter_ecommerce/views/pages/product_details.dart';
@@ -18,6 +19,14 @@ Route<dynamic> onGenerate(RouteSettings settings) {
     case AppRoutes.bottomNavBarRoute:
       return CupertinoPageRoute(
         builder: (_) => const BottomNavbar(),
+        settings: settings,
+      );
+    case AppRoutes.checkoutPageRoute:
+      final database = settings.arguments as Database;
+      return CupertinoPageRoute(
+        builder: (_) => Provider<Database>.value(
+          value: database,
+          child: const CheckoutPage()),
         settings: settings,
       );
     case AppRoutes.productDetailsRoute:
