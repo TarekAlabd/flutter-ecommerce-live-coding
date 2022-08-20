@@ -1,4 +1,5 @@
 import 'package:flutter_ecommerce/models/add_to_cart_model.dart';
+import 'package:flutter_ecommerce/models/delivery_method.dart';
 import 'package:flutter_ecommerce/models/product.dart';
 import 'package:flutter_ecommerce/models/user_data.dart';
 import 'package:flutter_ecommerce/services/firestore_services.dart';
@@ -8,6 +9,7 @@ abstract class Database {
   Stream<List<Product>> salesProductsStream();
   Stream<List<Product>> newProductsStream();
   Stream<List<AddToCartModel>> myProductsCart();
+  Stream<List<DeliveryMethod>> deliveryMethodsStream();
   Future<void> setUserData(UserData userData);
   Future<void> addToCart(AddToCartModel product);
 }
@@ -49,4 +51,11 @@ class FirestoreDatabase implements Database {
         builder: (data, documentId) =>
             AddToCartModel.fromMap(data!, documentId),
       );
+
+  @override
+  Stream<List<DeliveryMethod>> deliveryMethodsStream() =>
+      _service.collectionsStream(
+          path: ApiPath.deliveryMethods(),
+          builder: (data, documentId) =>
+              DeliveryMethod.fromMap(data!, documentId));
 }

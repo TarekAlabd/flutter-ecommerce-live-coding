@@ -17,9 +17,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   List<Widget> _buildScreens() {
     return [
-      const CartPage(),
       const HomePage(),
       Container(),
+      const CartPage(),
       Container(),
       const ProfilePage()
     ];
@@ -27,12 +27,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-      PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.shopping_cart),
-        title: ("Cart"),
-        activeColorPrimary: CupertinoColors.activeBlue,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.home),
         title: ("Home"),
@@ -42,6 +36,12 @@ class _BottomNavbarState extends State<BottomNavbar> {
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.bag),
         title: ("Shop"),
+        activeColorPrimary: CupertinoColors.activeBlue,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(CupertinoIcons.shopping_cart),
+        title: ("Cart"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
