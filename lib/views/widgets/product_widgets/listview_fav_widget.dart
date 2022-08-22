@@ -40,6 +40,14 @@ class ListViewFavWidget extends StatelessWidget {
                   width: double.infinity,
                   child: DecoratedBox(
                       decoration: BoxDecoration(
+                        // image:  DecorationImage(
+                        //   fit: BoxFit.cover,
+                        //   colorFilter:  ColorFilter.mode(
+                        //       Colors.black.withOpacity(0.2), BlendMode.dstATop),
+                        //   image: const NetworkImage(
+                        //     'http://www.allwhitebackground.com/images/2/2582-190x190.jpg',
+                        //   ),
+                        // ),
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20.0),
                       ),
@@ -63,7 +71,7 @@ class ListViewFavWidget extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 6.0),
                                 DiscountSpan.build(
-                          context, hasDiscount, product.discount),
+                                    context, hasDiscount, product.discount),
                                 // const SizedBox(
                                 //   height: 8,
                                 // ),

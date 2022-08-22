@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/views/pages/favorites_page.dart';
 import 'package:flutter_ecommerce/views/pages/my_cart_page.dart';
+import 'package:flutter_ecommerce/views/pages/my_orders_pagr.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import '../../models/category_model.dart';
@@ -24,7 +25,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<Widget> _buildScreens() {
     return [
-      const HomePage(),
+      const  HomePage(),
       const ShopPage(),
       const MyCartPage(),
       const FavoritesPage(),

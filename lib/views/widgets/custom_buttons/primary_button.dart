@@ -20,13 +20,12 @@ class PrimaryButton extends StatelessWidget {
         primary: primaryColor,
       ),
       onPressed: onTapAction,
-    //  icon: icon_,
-      child: Text(
-        label_,
-        style: const TextStyle(
-          color: Colors.white,
-        ),
-      ),
+      //  icon: icon_,
+      child: Text(label_,
+          style: Theme.of(context)
+              .textTheme
+              .headline6!
+              .copyWith(color: Colors.white)),
     );
   }
 }

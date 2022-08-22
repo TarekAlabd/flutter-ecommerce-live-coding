@@ -7,4 +7,6 @@ class AppRoutes {
   static const String homePageRoute = '/HomePage';
   static const String categoriesPageRoute = '/CategoriesPage';
   static const String categoryPageRoute = '/CategoryPage';
+  static const String productDetailsPageRoute = '/product-details';
+  static const String myOrdersPageRoute = '/my-orders';
 }

@@ -1,11 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/utilities/routes.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/auth_controller.dart';
 import '../../services/auth.dart';
 import '../widgets/custom_buttons/primary_icon_button.dart';
-
- 
+import 'my_orders_pagr.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -99,12 +100,24 @@ class ProfilePage extends StatelessWidget {
                       shrinkWrap: true,
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       children: [
-                        ListViewItem.build('My Orders','Already have 12 orders',(){}),
-                        ListViewItem.build('Shipping Addresses','Already have 3 addresses',(){}),
-                        ListViewItem.build('Payment Methods','Visa ***98',(){}),
-                        ListViewItem.build('Promo Codes','You have Special Codes',(){}),
-                        ListViewItem.build('My Reviews','Reviews fo 5 items',(){}),
-                        ListViewItem.build('Settings','Notifications,Password',(){}),
+                        ListViewItem.build(
+                          'My Orders',
+                          'Already have 12 orders',
+                          () => Navigator.of(context).push(
+                            CupertinoPageRoute(builder: (_)=>const MyOrdersPage() ),
+                            //(e) => false
+                          ),
+                        ),
+                        ListViewItem.build('Shipping Addresses',
+                            'Already have 3 addresses', () {}),
+                        ListViewItem.build(
+                            'Payment Methods', 'Visa ***98', () {}),
+                        ListViewItem.build(
+                            'Promo Codes', 'You have Special Codes', () {}),
+                        ListViewItem.build(
+                            'My Reviews', 'Reviews fo 5 items', () {}),
+                        ListViewItem.build(
+                            'Settings', 'Notifications,Password', () {}),
                       ],
                     ),
                   ),
@@ -132,17 +145,17 @@ class ProfilePage extends StatelessWidget {
 }
 
 class ListViewItem {
-  
-  static Widget build(String title,
-    String subTitle,
-    VoidCallback event) {
-    return DecoratedBox(
-      decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.grey))),
-      child: ListTile(
-        trailing: const Icon(Icons.keyboard_arrow_right_sharp),
-        title: Text(title),
-        subtitle: Text(subTitle),
+  static Widget build(String title, String subTitle, VoidCallback event) {
+    return InkWell(
+      onTap: event,
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
+            border: Border(bottom: BorderSide(color: Colors.grey))),
+        child: ListTile(
+          trailing: const Icon(Icons.keyboard_arrow_right_sharp),
+          title: Text(title),
+          subtitle: Text(subTitle),
+        ),
       ),
     );
   }
