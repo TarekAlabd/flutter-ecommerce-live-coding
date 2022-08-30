@@ -46,7 +46,7 @@ class MyCartPage extends StatelessWidget {
                       }
                       return ListView(
                           children: productslist
-                              .map((e) => ListViewCartWidget(product: e))
+                              .map((e) => ListViewCartWidget(product: e ,size: ' XL',color: ' black',))
                               .toList());
                     } else {
                       return const Center(child: CircularProgressIndicator());

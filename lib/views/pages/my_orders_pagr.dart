@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'order_details_page.dart';
+
 class MyOrdersPage extends StatefulWidget {
   const MyOrdersPage({Key? key}) : super(key: key);
 
@@ -15,7 +17,11 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(
-            right: 15.0, left: 15.0, bottom: 20.0, top: 50),
+          right: 15.0,
+          left: 15.0,
+          bottom: 20.0,
+          top: 50,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -67,7 +73,15 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
               child: ListView.builder(
                 itemCount: 4,
                 itemBuilder: (context, i) {
-                  return _buildOrderCard();
+                  return _buildOrderCard(
+                    Text(
+                      getStatusLabel(),
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: getStatusColor(),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
+                    ),
+                  );
                 },
               ),
             )
@@ -77,7 +91,16 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
     );
   }
 
-  Widget _buildOrderCard() {
+  Widget _buildOrderCard(Widget orderStatusWidget) {
+    String orderNo = '1283978686872';
+    String trackingNo = 'IWAEEEK123123';
+    String orderDate = '21-02-2022';
+    int totalItems = 2;
+    double discount = 0;
+    double totalPrice = 500;
+    Widget paymentMethod = Container();
+    String deliveryMethod = "Fedex , 3 days ,12 ";
+    String shippingAddress = "10 , Cairo , Abbas Al.aqqad , building no 190";
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: SizedBox(
@@ -93,14 +116,14 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'orderNo 1283978686872',
+                      'orderNo $orderNo',
                       style: Theme.of(context).textTheme.titleMedium!.copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
                     ),
                     Text(
-                      '21-02-2022',
+                      orderDate,
                       style: Theme.of(context).textTheme.titleMedium!.copyWith(
                             color: Colors.grey,
                             fontSize: 16,
@@ -122,7 +145,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                           .copyWith(color: Colors.grey),
                     ),
                     Text(
-                      'IWAEEEK123123',
+                      trackingNo,
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1!
@@ -147,7 +170,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                               .copyWith(color: Colors.grey),
                         ),
                         Text(
-                          '10',
+                          totalItems.toString(),
                           style: Theme.of(context)
                               .textTheme
                               .subtitle1!
@@ -166,7 +189,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                               .copyWith(color: Colors.grey),
                         ),
                         Text(
-                          '40 ',
+                          totalPrice.toString(),
                           style: Theme.of(context)
                               .textTheme
                               .subtitle1!
@@ -182,38 +205,50 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      height: 32,
-                      width: 75,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 0.75,
-                            )),
-                        child: Center(
-                          child: Text(
-                            'Details',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                ),
+                    InkWell(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => OrderDetailsPage(
+                            orderNo: orderNo,
+                            orderDate: orderDate,
+                            trackingNo: trackingNo,
+                            orderStatusWidget: orderStatusWidget,
+                            paymentMethod: paymentMethod,
+                            deliveryMethod: deliveryMethod,
+                            shippingAddress: shippingAddress,
+                            discount: discount,
+                            totalItems: totalItems,
+                            totalPrice: totalPrice,
+                          ),
+                        ),
+                      ),
+                      child: SizedBox(
+                        height: 32,
+                        width: 75,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 0.75,
+                              )),
+                          child: Center(
+                            child: Text(
+                              'Details',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                  ),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    Text(
-                      getStatusLabel(),
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          color: getStatusColor(),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    )
+                    orderStatusWidget
                   ],
                 )
               ],

@@ -14,9 +14,21 @@ import '../../pages/category_page.dart';
 import 'quantity_button.dart';
 
 class ListViewCartWidget extends StatefulWidget {
-  const ListViewCartWidget({Key? key, required this.product}) : super(key: key);
+  const ListViewCartWidget(
+      {Key? key,
+      required this.product,
+      this.cardType = orderCardTypes.cart,
+      this.itemUnit = 0,
+      this.brandName = "Mango",
+      required this.size,
+      required this.color})
+      : super(key: key);
   final Product product;
-
+  final orderCardTypes cardType;
+  final int itemUnit;
+  final String brandName;
+  final String size;
+  final String color;
   @override
   State<ListViewCartWidget> createState() => _ListViewCartWidgetState();
 }
@@ -24,9 +36,10 @@ class ListViewCartWidget extends StatefulWidget {
 class _ListViewCartWidgetState extends State<ListViewCartWidget> {
   @override
   Widget build(BuildContext context) {
+    int qty = widget.cardType == orderCardTypes.cart ? 1 : widget.itemUnit;
     var size = MediaQuery.of(context).size;
     bool hasDiscount = widget.product.discount > 0;
-    int qty = 1;
+
     final totalPrice = hasDiscount
         ? widget.product.price
         : widget.product.price -
@@ -41,7 +54,7 @@ class _ListViewCartWidgetState extends State<ListViewCartWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 135,
+                height: 140,
                 width: double.infinity,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
@@ -90,17 +103,32 @@ class _ListViewCartWidgetState extends State<ListViewCartWidget> {
                               const SizedBox(
                                 height: 5,
                               ),
+                              if (widget.cardType == orderCardTypes.orderDetail)
+                                Text(
+                                  widget.brandName,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1
+                                      ?.copyWith(
+                                        color: Colors.grey,
+                                        fontSize: 13,
+                                      ),
+                                ),
+                              if (widget.cardType == orderCardTypes.orderDetail)
+                                const SizedBox(
+                                  height: 10,
+                                ),
                               Row(
                                 children: [
                                   Text(
-                                    'Size',
+                                    'Size:',
                                     style: Theme.of(context)
                                         .textTheme
                                         .subtitle1
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                   Text(
-                                    ' XL',
+                                    widget.size,
                                     style: Theme.of(context)
                                         .textTheme
                                         .subtitle1
@@ -113,14 +141,14 @@ class _ListViewCartWidgetState extends State<ListViewCartWidget> {
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Text(
-                                        'Color',
+                                        'Color:',
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                       Text(
-                                        ' black',
+                                         widget.color,
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1
@@ -138,36 +166,54 @@ class _ListViewCartWidgetState extends State<ListViewCartWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 // crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    // crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            qty--;
-                                          });
-                                        },
-                                        child: QuantityButton.build(
-                                            context, false),
-                                      ),
-                                      SizedBox(
-                                          width: 30,
-                                          child: Text(
-                                            qty.toString(),
-                                            textAlign: TextAlign.center,
-                                          )),
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            qty++;
-                                          });
-                                        },
-                                        child: QuantityButton.build(
-                                            context, true),
-                                      ),
-                                    ],
-                                  ),
+                                  widget.cardType == orderCardTypes.cart
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          // crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  qty--;
+                                                });
+                                              },
+                                              child: QuantityButton.build(
+                                                  context, false),
+                                            ),
+                                            SizedBox(
+                                                width: 30,
+                                                child: Text(
+                                                  qty.toString(),
+                                                  textAlign: TextAlign.center,
+                                                )),
+                                            InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  qty++;
+                                                });
+                                              },
+                                              child: QuantityButton.build(
+                                                  context, true),
+                                            ),
+                                          ],
+                                        )
+                                      : Row(children: [
+                                          Text(
+                                            'Unit',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1
+                                                ?.copyWith(color: Colors.grey),
+                                          ),
+                                          Text(
+                                            ' $qty',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1
+                                                ?.copyWith(color: Colors.black),
+                                          ),
+                                        ]),
                                   // const Spacer(),
                                 ],
                               ),
@@ -179,7 +225,8 @@ class _ListViewCartWidgetState extends State<ListViewCartWidget> {
                         ),
                         Column(
                           children: [
-                            DeleteButton.build(),
+                            if (widget.cardType == orderCardTypes.cart)
+                              DeleteButton.build(),
                             const Spacer(),
                             Padding(
                               padding: const EdgeInsets.only(
@@ -207,3 +254,5 @@ class _ListViewCartWidgetState extends State<ListViewCartWidget> {
     );
   }
 }
+
+enum orderCardTypes { cart, orderDetail }
