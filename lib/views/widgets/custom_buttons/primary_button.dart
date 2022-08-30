@@ -15,17 +15,27 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        primary: primaryColor,
+    return InkWell(
+      onTap: onTapAction,
+      child: SizedBox(
+        height:42,
+        child: DecoratedBox(
+          decoration: const BoxDecoration(
+            borderRadius:  BorderRadius.all(
+              Radius.circular(25),
+            ),color:primaryColor 
+          ),
+          child: Center(
+             
+             
+            child: Text(label_,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .copyWith(color: Colors.white)),
+          ),
+        ),
       ),
-      onPressed: onTapAction,
-      //  icon: icon_,
-      child: Text(label_,
-          style: Theme.of(context)
-              .textTheme
-              .headline6!
-              .copyWith(color: Colors.white)),
     );
   }
 }

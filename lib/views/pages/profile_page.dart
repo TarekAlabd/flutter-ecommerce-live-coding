@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../controllers/auth_controller.dart';
 import '../../services/auth.dart';
+import '../widgets/custom_buttons/primary_button.dart';
 import '../widgets/custom_buttons/primary_icon_button.dart';
 import 'my_orders_pagr.dart';
 
@@ -122,18 +123,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  SizedBox(
-                    height: 45,
-                    width: double.infinity,
-                    child: InkWell(
-                      child: PrimaryIconButton(
-                          label_: 'Logout',
-                          icon_: const Icon(Icons.logout),
-                          onTapAction: () {
-                            _logout(model, context);
-                          }),
-                    ),
-                  )
+                  PrimaryButton(label_: 'Logout',onTapAction: ()=> _logout(model, context),)
                 ],
               ),
             ),

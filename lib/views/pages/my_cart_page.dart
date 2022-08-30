@@ -116,13 +116,10 @@ class MyCartPage extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  SizedBox(
-                      width: double.infinity,
-                      height: 42,
-                      child: PrimaryButton(
-                        label_: "Check out",
-                        onTapAction: () {},
-                      ).build(context)),
+                  PrimaryButton(
+                    label_: "Check out",
+                    onTapAction: () {},
+                  ).build(context),
                 ],
               ),
             )
