@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/models/shipping_address.dart';
 
 class ShippingAddressComponent extends StatelessWidget {
-  const ShippingAddressComponent({Key? key}) : super(key: key);
+  final ShippingAddress shippingAddress;
+  const ShippingAddressComponent({
+    Key? key,
+    required this.shippingAddress,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +21,7 @@ class ShippingAddressComponent extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Tarek Alabd',
+                  shippingAddress.fullName,
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -34,11 +39,11 @@ class ShippingAddressComponent extends StatelessWidget {
             ),
             const SizedBox(height: 8.0),
             Text(
-              '13 Mossaddak Street',
+              shippingAddress.address,
               style: Theme.of(context).textTheme.subtitle1,
             ),
             Text(
-              'Dokki, Giza, Egypt',
+              '${shippingAddress.city}, ${shippingAddress.state}, ${shippingAddress.country}',
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ],

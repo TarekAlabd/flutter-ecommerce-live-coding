@@ -69,7 +69,10 @@ class CheckoutPage extends StatelessWidget {
                           ),
                         );
                       }
-                      return ShippingAddressComponent();
+                      // TODO: We need to filter the data to chosse the default one only
+                      final shippingAddress = shippingAddresses.first;
+                      return ShippingAddressComponent(
+                          shippingAddress: shippingAddress);
                     }
                     return const Center(
                       child: CircularProgressIndicator.adaptive(),
