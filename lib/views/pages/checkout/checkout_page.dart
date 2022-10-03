@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/delivery_method.dart';
+import 'package:flutter_ecommerce/models/shipping_address.dart';
 import 'package:flutter_ecommerce/utilities/assets.dart';
+import 'package:flutter_ecommerce/utilities/routes.dart';
 import 'package:flutter_ecommerce/views/widgets/checkout/checkout_order_details.dart';
 import 'package:flutter_ecommerce/views/widgets/checkout/delivery_method_item.dart';
 import 'package:flutter_ecommerce/views/widgets/checkout/payment_component.dart';
@@ -36,7 +38,43 @@ class CheckoutPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               const SizedBox(height: 8.0),
-              ShippingAddressComponent(),
+              StreamBuilder<List<ShippingAddress>>(
+                  stream: database.getShippingAddresses(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.active) {
+                      final shippingAddresses = snapshot.data;
+                      if (shippingAddresses == null ||
+                          shippingAddresses.isEmpty) {
+                        return Center(
+                          child: Column(
+                            children: [
+                              const Text('No Shipping Addresses!'),
+                              const SizedBox(height: 6.0),
+                              InkWell(
+                                onTap: () => Navigator.of(context).pushNamed(
+                                  AppRoutes.addShippingAddressRoute,
+                                  arguments: database,
+                                ),
+                                child: Text(
+                                  'Add new one',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .button!
+                                      .copyWith(
+                                        color: Colors.redAccent,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                      return ShippingAddressComponent();
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    );
+                  }),
               const SizedBox(height: 24.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
