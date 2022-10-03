@@ -34,7 +34,7 @@ class _AuthPageState extends State<AuthPage> {
       await model.submit();
       if (!mounted) return;
     } catch (e) {
-      MainDialog(context: context, title: 'Error', content: e.toString())
+      MainDialog(context: context, title: 'Error Authentication', content: e.toString())
           .showAlertDialog();
     }
   }
