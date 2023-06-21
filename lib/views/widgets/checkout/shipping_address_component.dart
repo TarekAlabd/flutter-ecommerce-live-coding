@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/shipping_address.dart';
 import 'package:flutter_ecommerce/utilities/routes.dart';
-import 'package:provider/provider.dart';
 
 class ShippingAddressComponent extends StatelessWidget {
   final ShippingAddress shippingAddress;
@@ -13,6 +14,7 @@ class ShippingAddressComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
     final database = Provider.of<Database>(context);
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
@@ -26,9 +28,9 @@ class ShippingAddressComponent extends StatelessWidget {
               children: [
                 Text(
                   shippingAddress.fullName,
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                  style: theme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 InkWell(
                   onTap: () => Navigator.of(context).pushNamed(
@@ -37,9 +39,9 @@ class ShippingAddressComponent extends StatelessWidget {
                   ),
                   child: Text(
                     'Change',
-                    style: Theme.of(context).textTheme.button!.copyWith(
-                          color: Colors.redAccent,
-                        ),
+                    style: theme.button!.copyWith(
+                      color: Colors.redAccent,
+                    ),
                   ),
                 ),
               ],
@@ -47,11 +49,11 @@ class ShippingAddressComponent extends StatelessWidget {
             const SizedBox(height: 8.0),
             Text(
               shippingAddress.address,
-              style: Theme.of(context).textTheme.subtitle1,
+              style: theme.titleLarge,
             ),
             Text(
               '${shippingAddress.city}, ${shippingAddress.state}, ${shippingAddress.country}',
-              style: Theme.of(context).textTheme.subtitle1,
+              style: theme.titleLarge,
             ),
           ],
         ),

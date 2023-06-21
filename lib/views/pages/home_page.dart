@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
                 ),
                 child: Text(
                   'Street Clothes',
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),

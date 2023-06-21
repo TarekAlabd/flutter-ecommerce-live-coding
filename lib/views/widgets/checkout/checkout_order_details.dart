@@ -6,8 +6,8 @@ class CheckoutOrderDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
+    return const Column(
+      children: [
         OrderSummaryComponent(title: 'Order', value: '125\$'),
         SizedBox(height: 8.0),
         OrderSummaryComponent(title: 'Delivery', value: '15\$'),
