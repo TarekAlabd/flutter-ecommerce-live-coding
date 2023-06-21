@@ -52,7 +52,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       appBar: AppBar(
         title: Text(
           widget.product.title,
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [
           IconButton(

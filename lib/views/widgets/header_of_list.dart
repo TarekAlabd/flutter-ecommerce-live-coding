@@ -21,7 +21,7 @@ class HeaderOfList extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.headline4!.copyWith(
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
@@ -30,14 +30,14 @@ class HeaderOfList extends StatelessWidget {
               onTap: onTap,
               child: Text(
                 'View All',
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
           ],
         ),
         Text(
           description,
-          style: Theme.of(context).textTheme.subtitle1!.copyWith(
+          style: Theme.of(context).textTheme.titleMedium!.copyWith(
                 color: Colors.grey,
               ),
         ),
