@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/delivery_method.dart';
 import 'package:flutter_ecommerce/models/shipping_address.dart';
+import 'package:flutter_ecommerce/utilities/args_models/add_shipping_address_args.dart';
 import 'package:flutter_ecommerce/utilities/assets.dart';
 import 'package:flutter_ecommerce/utilities/routes.dart';
 import 'package:flutter_ecommerce/views/widgets/checkout/checkout_order_details.dart';
@@ -53,7 +54,8 @@ class CheckoutPage extends StatelessWidget {
                               InkWell(
                                 onTap: () => Navigator.of(context).pushNamed(
                                   AppRoutes.addShippingAddressRoute,
-                                  arguments: database,
+                                  arguments: AddShippingAddressArgs(
+                                      database: database),
                                 ),
                                 child: Text(
                                   'Add new one',
@@ -87,7 +89,9 @@ class CheckoutPage extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).pushNamed(AppRoutes.paymentMethodsRoute);
+                    },
                     child: Text(
                       'Change',
                       style: Theme.of(context).textTheme.button!.copyWith(
