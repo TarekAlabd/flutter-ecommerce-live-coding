@@ -1,7 +1,7 @@
 class AppAssets {
   /// Home Page Images
   static const String topBannerHomePageAsset =
-      'https://cdn1.expertreviews.co.uk/sites/expertreviews/files/2019/08/best_online_clothes_shops.jpg';
+      'https://i0.wp.com/www.sifascorner.com/wp-content/uploads/2020/09/Best-Online-Clothing-Stores-for-Budget-Shopping-Sifas-Corner-2-scaled.jpg';
   static const String tempProductAsset1 =
       'https://m.media-amazon.com/images/I/61-jBuhtgZL._UX569_.jpg';
 
