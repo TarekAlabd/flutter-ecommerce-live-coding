@@ -20,7 +20,8 @@ class MainButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
-          primary: Theme.of(context).primaryColor,
+          backgroundColor: Theme.of(context).primaryColor,
+          foregroundColor: Colors.white,
           shape: hasCircularBorder
               ? RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(24.0),
