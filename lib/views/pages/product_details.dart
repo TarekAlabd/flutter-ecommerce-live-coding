@@ -4,6 +4,7 @@ import 'package:flutter_ecommerce/models/add_to_cart_model.dart';
 import 'package:flutter_ecommerce/models/product.dart';
 import 'package:flutter_ecommerce/utilities/constants.dart';
 import 'package:flutter_ecommerce/views/widgets/drop_down_menu.dart';
+import 'package:flutter_ecommerce/views/widgets/favorite_button.dart';
 import 'package:flutter_ecommerce/views/widgets/main_button.dart';
 import 'package:flutter_ecommerce/views/widgets/main_dialog.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,8 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   bool isFavorite = false;
   late String dropdownValue;
+  bool _isSizesBottomSheetShow = false;
+  final List<String> _availableSizes = ['S', 'M', 'L', 'XL', 'XXL'];
 
   Future<void> _addToCart(Database database) async {
     try {
@@ -43,12 +46,79 @@ class _ProductDetailsState extends State<ProductDetails> {
     }
   }
 
+  Widget _showSizesBottomSheet({required double height}) {
+    if (_isSizesBottomSheetShow) {
+      return BottomSheet(
+        onClosing: () {},
+        builder: (context) {
+          return Container(
+            height: height * 0.5,
+            width: double.infinity,
+            padding: const EdgeInsets.only(top: 20.0),
+            decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                )),
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Divider(
+                  indent: height * 0.2,
+                  endIndent: height * 0.2,
+                  color: Colors.grey,
+                  thickness: 5,
+                ),
+                Text(
+                  'Select Size',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                SizedBox(
+                  height: height * 0.35,
+                  child: GridView.count(
+                    crossAxisCount: 3,
+                    childAspectRatio: 1.5,
+                    children: List.generate(_availableSizes.length, (index) {
+                      return InkWell(
+                        onTap: () {
+                          _isSizesBottomSheetShow = false;
+                          setState(() {
+                            dropdownValue = _availableSizes[index];
+                          });
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Center(child: Text(_availableSizes[index])),
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    } else {
+      return const SizedBox();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final database = Provider.of<Database>(context);
 
     return Scaffold(
+      bottomSheet: _showSizesBottomSheet(
+        height: size.height,
+      ),
       appBar: AppBar(
         title: Text(
           widget.product.title,
@@ -87,47 +157,45 @@ class _ProductDetailsState extends State<ProductDetails> {
                       Expanded(
                         child: SizedBox(
                           height: 60,
-                          child: DropDownMenuComponent(
-                            items: const ['S', 'M', 'L', 'XL', 'XXL'],
-                            hint: 'Size',
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue = newValue!;
-                              });
+                          child: InkWell(
+                            onTap: () {
+                              _isSizesBottomSheetShow = true;
+                              setState(() {});
                             },
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
-                      // TODO: Create one component for the favorite button
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            isFavorite = !isFavorite;
-                          });
-                        },
-                        child: SizedBox(
-                          height: 60,
-                          width: 60,
-                          child: DecoratedBox(
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Icon(
-                                isFavorite
-                                    ? Icons.favorite
-                                    : Icons.favorite_border_outlined,
-                                color: isFavorite
-                                    ? Colors.redAccent
-                                    : Colors.black45,
-                                size: 30,
+                            child: Container(
+                              width: 80.0,
+                              height: 20.0,
+                              padding: const EdgeInsets.all(
+                                10.0,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(
+                                  15.0,
+                                ),
+                                border: Border.all(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              child: Row(
+                                children: const [
+                                  Text('Size'),
+                                  Spacer(),
+                                  Icon(Icons.arrow_drop_down),
+                                ],
                               ),
                             ),
                           ),
                         ),
+                      ),
+                      const Spacer(),
+                      FavoriteButton(
+                        addToFavorites: () {
+                          setState(() {
+                            isFavorite = !isFavorite;
+                          });
+                        },
+                        isFavorite: isFavorite,
                       ),
                     ],
                   ),
