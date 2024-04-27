@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce/controllers/checkout/checkout_cubit.dart';
+import 'package:flutter_ecommerce/models/payment_method.dart';
 import 'package:flutter_ecommerce/views/widgets/main_button.dart';
 
 class AddNewCardBottomSheet extends StatefulWidget {
@@ -28,6 +31,7 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final checkoutCubit = BlocProvider.of<CheckoutCubit>(context);
 
     return SizedBox(
       height: size.height * 0.7,
@@ -51,7 +55,7 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
                 validator: (value) => value != null && value.isEmpty
                     ? 'Please enter your name'
                     : null,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Name on Card',
                   border: OutlineInputBorder(),
                 ),
@@ -77,7 +81,7 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
                     _cardNumberController.text = value.substring(0, 19);
                   }
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Card Number',
                   border: OutlineInputBorder(),
                 ),
@@ -102,7 +106,7 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
                     _expireDateController.text = value.substring(0, 5);
                   }
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Expire Date',
                   border: OutlineInputBorder(),
                 ),
@@ -124,7 +128,7 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
                   }
                 },
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'CVV',
                   border: OutlineInputBorder(),
                 ),
@@ -135,11 +139,47 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
               padding: const EdgeInsets.symmetric(
                 horizontal: 16.0,
               ),
-              child: MainButton(
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {}
+              child: BlocConsumer<CheckoutCubit, CheckoutState>(
+                bloc: checkoutCubit,
+                listenWhen: (previous, current) => current is CardsAdded || current is CardsAddingFailed,
+                listener: (context, state) {
+                  if (state is CardsAdded) {
+                    Navigator.pop(context);
+                  } else if (state is CardsAddingFailed) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.error),
+                      ),
+                    );
+                  }
                 },
-                text: 'Add Card',
+                buildWhen: (previous, current) =>
+                    current is AddingCards ||
+                    current is CardsAdded ||
+                    current is CardsAddingFailed,
+                builder: (context, state) {
+                  if (state is AddingCards) {
+                    return MainButton(
+                    onTap: null,
+                    child: const CircularProgressIndicator.adaptive(),
+                  );
+                  } 
+                  return MainButton(
+                    onTap: () async {
+                      if (_formKey.currentState!.validate()) {
+                        final paymentMethod = PaymentMethod(
+                          id: DateTime.now().toIso8601String(),
+                          name: _nameOnCardController.text,
+                          cardNumber: _cardNumberController.text,
+                          expiryDate: _expireDateController.text,
+                          cvv: _cvvController.text,
+                        );
+                        await checkoutCubit.addCard(paymentMethod);
+                      }
+                    },
+                    text: 'Add Card',
+                  );
+                },
               ),
             ),
           ],

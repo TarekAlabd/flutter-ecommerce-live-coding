@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce/controllers/checkout/checkout_cubit.dart';
 import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/product.dart';
 import 'package:flutter_ecommerce/models/shipping_address.dart';
@@ -56,7 +58,14 @@ Route<dynamic> onGenerate(RouteSettings settings) {
       );
     case AppRoutes.paymentMethodsRoute:
       return CupertinoPageRoute(
-        builder: (_) => const PaymentMethodsPage(),
+        builder: (_) => BlocProvider(
+          create: (context) {
+            final cubit = CheckoutCubit();
+            cubit.fetchCards();
+            return cubit;
+          },
+          child: const PaymentMethodsPage(),
+        ),
         settings: settings,
       );
     case AppRoutes.addShippingAddressRoute:
