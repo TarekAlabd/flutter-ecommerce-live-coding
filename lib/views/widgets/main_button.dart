@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onTap;
+  final String? text;
+  final VoidCallback? onTap;
   final bool hasCircularBorder;
+  final Widget? child;
 
-  const MainButton({
-    Key? key,
-    required this.text,
-    required this.onTap,
+  MainButton({
+    super.key,
+    this.text,
+    this.onTap,
     this.hasCircularBorder = false,
-  }) : super(key: key);
+    this.child,
+  }) {
+    assert(text != null || child != null);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +32,9 @@ class MainButton extends StatelessWidget {
                 )
               : null,
         ),
-        child: Text(
-          text,
-        ),
+        child: text != null ? Text(
+          text!,
+        ) : child,
       ),
     );
   }

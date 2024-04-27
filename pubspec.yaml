@@ -1,31 +1,32 @@
 name: flutter_ecommerce
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
   sdk: ">=3.2.0 <4.0.0"
 
 dependencies:
+  cloud_firestore: ^4.13.6
+  cupertino_icons: ^1.0.2
+  firebase_auth: ^4.15.3
+  firebase_core: ^2.24.2
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  persistent_bottom_nav_bar_v2: ^4.2.8
-  firebase_core: ^2.24.2
-  firebase_auth: ^4.15.3
-  cloud_firestore: ^4.13.6
-  provider: ^6.1.1
-  flutter_svg: ^2.0.9
+  flutter_bloc: ^8.1.5
   flutter_rating_bar: ^4.0.1
+  flutter_svg: ^2.0.9
+  persistent_bottom_nav_bar_v2: ^4.2.8
+  provider: ^6.1.1
 
 dev_dependencies:
+  change_app_package_name: ^1.1.0
+  flutter_lints: ^3.0.1
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.1
-  change_app_package_name: ^1.1.0
 
 flutter:
   uses-material-design: true
   assets:
-     - assets/
+    - assets/
