@@ -5,7 +5,8 @@ import 'package:flutter_ecommerce/models/payment_method.dart';
 import 'package:flutter_ecommerce/views/widgets/main_button.dart';
 
 class AddNewCardBottomSheet extends StatefulWidget {
-  const AddNewCardBottomSheet({super.key});
+  final PaymentMethod? paymentMethod;
+  const AddNewCardBottomSheet({super.key, this.paymentMethod,});
 
   @override
   State<AddNewCardBottomSheet> createState() => _AddNewCardBottomSheetState();
@@ -26,6 +27,13 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
     _expireDateController = TextEditingController();
     _cardNumberController = TextEditingController();
     _cvvController = TextEditingController();
+    
+    if (widget.paymentMethod != null) {
+      _nameOnCardController.text = widget.paymentMethod!.name;
+      _expireDateController.text = widget.paymentMethod!.expiryDate;
+      _cardNumberController.text = widget.paymentMethod!.cardNumber;
+      _cvvController.text = widget.paymentMethod!.cvv;
+    }
   }
 
   @override
@@ -141,7 +149,8 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
               ),
               child: BlocConsumer<CheckoutCubit, CheckoutState>(
                 bloc: checkoutCubit,
-                listenWhen: (previous, current) => current is CardsAdded || current is CardsAddingFailed,
+                listenWhen: (previous, current) =>
+                    current is CardsAdded || current is CardsAddingFailed,
                 listener: (context, state) {
                   if (state is CardsAdded) {
                     Navigator.pop(context);
@@ -160,15 +169,15 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
                 builder: (context, state) {
                   if (state is AddingCards) {
                     return MainButton(
-                    onTap: null,
-                    child: const CircularProgressIndicator.adaptive(),
-                  );
-                  } 
+                      onTap: null,
+                      child: const CircularProgressIndicator.adaptive(),
+                    );
+                  }
                   return MainButton(
                     onTap: () async {
                       if (_formKey.currentState!.validate()) {
                         final paymentMethod = PaymentMethod(
-                          id: DateTime.now().toIso8601String(),
+                          id: widget.paymentMethod != null ? widget.paymentMethod!.id : DateTime.now().toIso8601String(),
                           name: _nameOnCardController.text,
                           cardNumber: _cardNumberController.text,
                           expiryDate: _expireDateController.text,
@@ -177,7 +186,7 @@ class _AddNewCardBottomSheetState extends State<AddNewCardBottomSheet> {
                         await checkoutCubit.addCard(paymentMethod);
                       }
                     },
-                    text: 'Add Card',
+                    text: widget.paymentMethod != null ? 'Edit Card' : 'Add Card',
                   );
                 },
               ),

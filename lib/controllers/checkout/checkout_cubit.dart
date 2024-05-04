@@ -14,7 +14,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     emit(AddingCards());
 
     try {
-      await checkoutServices.addPaymentMethod(paymentMethod);
+      await checkoutServices.setPaymentMethod(paymentMethod);
       emit(CardsAdded());
     } catch (e) {
       emit(CardsAddingFailed(e.toString()));
@@ -22,11 +22,12 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   }
 
   Future<void> deleteCard(PaymentMethod paymentMethod) async {
-    emit(DeletingCards());
+    emit(DeletingCards(paymentMethod.id));
 
     try {
       await checkoutServices.deletePaymentMethod(paymentMethod);
       emit(CardsDeleted());
+      await fetchCards();
     } catch (e) {
       emit(CardsDeletingFailed(e.toString()));
     }
@@ -40,6 +41,24 @@ class CheckoutCubit extends Cubit<CheckoutState> {
       emit(CardsFetched(paymentMethods));
     } catch (e) {
       emit(CardsFetchingFailed(e.toString()));
+    }
+  }
+
+  Future<void> makePreferred(PaymentMethod paymentMethod) async {
+    emit(FetchingCards());
+
+    try {
+      final preferredPaymentMethods =
+          await checkoutServices.paymentMethods(true);
+      for (var method in preferredPaymentMethods) {
+        final newPaymentMethod = method.copyWith(isPreferred: false);
+        await checkoutServices.setPaymentMethod(newPaymentMethod);
+      }
+      final newPreferredMethod = paymentMethod.copyWith(isPreferred: true);
+      await checkoutServices.setPaymentMethod(newPreferredMethod);
+      emit(PreferredMade());
+    } catch (e) {
+      emit(PreferredMakingFailed(e.toString()));
     }
   }
 }
