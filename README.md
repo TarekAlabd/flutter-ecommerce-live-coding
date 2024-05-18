@@ -8,3 +8,6 @@ The main reason for this playlist is to simulate a part of the process we take w
 
 ## Feature Set ✨
 
+## The screenshots of Design enhancement:
+ <img src="https://user-images.githubusercontent.com/52568588/185251051-5438290e-5070-4104-a195-cd604de59e8e.png"  width="200" height="400" />
+

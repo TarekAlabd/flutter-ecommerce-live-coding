@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/product.dart';
+import 'package:flutter_ecommerce/views/widgets/favorite_button.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_ecommerce/utilities/assets.dart';
 import 'package:flutter_ecommerce/utilities/routes.dart';
@@ -73,33 +74,12 @@ class ListItemHome extends StatelessWidget {
           ),
           // TODO: Create one component for the favorite button
           Positioned(
-            left: size.width * 0.38,
-            bottom: size.height * 0.12,
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 5,
-                    color: Colors.grey,
-                    spreadRadius: 2,
-                  )
-                ],
-              ),
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 20.0,
-                child: InkWell(
-                  onTap: addToFavorites,
-                  child: Icon(
-                    isFavorite ? Icons.favorite : Icons.favorite_outline,
-                    size: 20.0,
-                    color: isFavorite ? Colors.red : Colors.grey,
-                  ),
-                ),
-              ),
-            ),
-          ),
+              left: size.width * 0.38,
+              bottom: size.height * 0.12,
+              child: FavoriteButton(
+                addToFavorites: addToFavorites,
+                isFavorite: isFavorite,
+              )),
           Positioned(
             bottom: 5,
             child: Column(
