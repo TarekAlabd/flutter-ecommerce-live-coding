@@ -23,7 +23,7 @@ class _ShippingAddressesPageState extends State<ShippingAddressesPage> {
       appBar: AppBar(
         title: Text(
           'Shipping Addresses',
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         centerTitle: true,
       ),

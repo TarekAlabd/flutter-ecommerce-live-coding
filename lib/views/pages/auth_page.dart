@@ -63,7 +63,7 @@ class _AuthPageState extends State<AuthPage> {
                         model.authFormType == AuthFormType.login
                             ? 'Login'
                             : 'Register',
-                        style: Theme.of(context).textTheme.headline4,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(height: 80.0),
                       TextFormField(
@@ -135,7 +135,7 @@ class _AuthPageState extends State<AuthPage> {
                             model.authFormType == AuthFormType.login
                                 ? 'Or Login with'
                                 : 'Or Register with',
-                            style: Theme.of(context).textTheme.subtitle1,
+                            style: Theme.of(context).textTheme.labelMedium,
                           )),
                       const SizedBox(height: 16.0),
                       Row(

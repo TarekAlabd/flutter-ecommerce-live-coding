@@ -26,7 +26,7 @@ class ShippingAddressComponent extends StatelessWidget {
               children: [
                 Text(
                   shippingAddress.fullName,
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                 ),
@@ -37,7 +37,7 @@ class ShippingAddressComponent extends StatelessWidget {
                   ),
                   child: Text(
                     'Change',
-                    style: Theme.of(context).textTheme.button!.copyWith(
+                    style: Theme.of(context).textTheme.labelSmall!.copyWith(
                           color: Colors.redAccent,
                         ),
                   ),
@@ -47,11 +47,11 @@ class ShippingAddressComponent extends StatelessWidget {
             const SizedBox(height: 8.0),
             Text(
               shippingAddress.address,
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
             Text(
               '${shippingAddress.city}, ${shippingAddress.state}, ${shippingAddress.country}',
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
           ],
         ),

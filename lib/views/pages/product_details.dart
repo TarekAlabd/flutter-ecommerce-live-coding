@@ -52,7 +52,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       appBar: AppBar(
         title: Text(
           widget.product.title,
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [
           IconButton(
@@ -137,13 +137,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                     children: [
                       Text(
                         widget.product.title,
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               fontWeight: FontWeight.w600,
                             ),
                       ),
                       Text(
                         '\$${widget.product.price}',
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               fontWeight: FontWeight.w600,
                             ),
                       ),
@@ -152,7 +152,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   const SizedBox(height: 8.0),
                   Text(
                     widget.product.category,
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
                           color: Colors.black54,
                         ),
                   ),
