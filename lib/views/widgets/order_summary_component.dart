@@ -16,13 +16,13 @@ class OrderSummaryComponent extends StatelessWidget {
       children: [
         Text(
           '$title:',
-          style: Theme.of(context).textTheme.subtitle1!.copyWith(
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(
                 color: Colors.grey,
               ),
         ),
         Text(
           value,
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
       ],
     );

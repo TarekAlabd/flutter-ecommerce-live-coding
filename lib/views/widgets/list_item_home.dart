@@ -60,7 +60,7 @@ class ListItemHome extends StatelessWidget {
                       child: Center(
                         child: Text(
                           isNew ? 'NEW' : '${product.discountValue}%',
-                          style: Theme.of(context).textTheme.caption!.copyWith(
+                          style: Theme.of(context).textTheme.labelSmall!.copyWith(
                                 color: Colors.white,
                               ),
                         ),
@@ -119,7 +119,7 @@ class ListItemHome extends StatelessWidget {
                     const SizedBox(width: 4.0),
                     Text(
                       '(100)',
-                      style: Theme.of(context).textTheme.caption!.copyWith(
+                      style: Theme.of(context).textTheme.labelSmall!.copyWith(
                             color: Colors.grey,
                           ),
                     ),
@@ -128,14 +128,14 @@ class ListItemHome extends StatelessWidget {
                 const SizedBox(height: 8.0),
                 Text(
                   product.category,
-                  style: Theme.of(context).textTheme.caption!.copyWith(
+                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
                         color: Colors.grey,
                       ),
                 ),
                 const SizedBox(height: 6.0),
                 Text(
                   product.title,
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                 ),
@@ -143,7 +143,7 @@ class ListItemHome extends StatelessWidget {
                 isNew
                     ? Text(
                         '${product.price}\$',
-                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        style: Theme.of(context).textTheme.labelMedium!.copyWith(
                               color: Colors.grey,
                             ),
                       )
@@ -154,7 +154,7 @@ class ListItemHome extends StatelessWidget {
                               text: '${product.price}\$  ',
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle2!
+                                  .labelMedium!
                                   .copyWith(
                                     color: Colors.grey,
                                     decoration: TextDecoration.lineThrough,
@@ -165,7 +165,7 @@ class ListItemHome extends StatelessWidget {
                                   '  ${product.price * (product.discountValue!) / 100}\$',
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle2!
+                                  .labelMedium!
                                   .copyWith(
                                     color: Colors.red,
                                   ),

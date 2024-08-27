@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             inputDecorationTheme: InputDecorationTheme(
-              labelStyle: Theme.of(context).textTheme.subtitle1,
+              labelStyle: Theme.of(context).textTheme.labelMedium,
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16.0),
                 borderSide: const BorderSide(

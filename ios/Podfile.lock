@@ -776,12 +776,49 @@ PODS:
   - nanopb/encode (2.30909.1)
   - PromisesObjC (2.3.1)
   - RecaptchaInterop (100.0.0)
+  - Stripe (23.28.1):
+    - StripeApplePay (= 23.28.1)
+    - StripeCore (= 23.28.1)
+    - StripePayments (= 23.28.1)
+    - StripePaymentsUI (= 23.28.1)
+    - StripeUICore (= 23.28.1)
+  - stripe_ios (0.0.1):
+    - Flutter
+    - Stripe (~> 23.28.0)
+    - StripeApplePay (~> 23.28.0)
+    - StripeFinancialConnections (~> 23.28.0)
+    - StripePayments (~> 23.28.0)
+    - StripePaymentSheet (~> 23.28.0)
+    - StripePaymentsUI (~> 23.28.0)
+  - StripeApplePay (23.28.1):
+    - StripeCore (= 23.28.1)
+  - StripeCore (23.28.1)
+  - StripeFinancialConnections (23.28.1):
+    - StripeCore (= 23.28.1)
+    - StripeUICore (= 23.28.1)
+  - StripePayments (23.28.1):
+    - StripeCore (= 23.28.1)
+    - StripePayments/Stripe3DS2 (= 23.28.1)
+  - StripePayments/Stripe3DS2 (23.28.1):
+    - StripeCore (= 23.28.1)
+  - StripePaymentSheet (23.28.1):
+    - StripeApplePay (= 23.28.1)
+    - StripeCore (= 23.28.1)
+    - StripePayments (= 23.28.1)
+    - StripePaymentsUI (= 23.28.1)
+  - StripePaymentsUI (23.28.1):
+    - StripeCore (= 23.28.1)
+    - StripePayments (= 23.28.1)
+    - StripeUICore (= 23.28.1)
+  - StripeUICore (23.28.1):
+    - StripeCore (= 23.28.1)
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
+  - stripe_ios (from `.symlinks/plugins/stripe_ios/ios`)
 
 SPEC REPOS:
   trunk:
@@ -804,6 +841,14 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - RecaptchaInterop
+    - Stripe
+    - StripeApplePay
+    - StripeCore
+    - StripeFinancialConnections
+    - StripePayments
+    - StripePaymentSheet
+    - StripePaymentsUI
+    - StripeUICore
 
 EXTERNAL SOURCES:
   cloud_firestore:
@@ -814,6 +859,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
+  stripe_ios:
+    :path: ".symlinks/plugins/stripe_ios/ios"
 
 SPEC CHECKSUMS:
   abseil: 926fb7a82dc6d2b8e1f2ed7f3a718bce691d1e46
@@ -839,7 +886,16 @@ SPEC CHECKSUMS:
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  Stripe: 20e24971647daa5750e7764faa1e8aefe4917243
+  stripe_ios: 91946e5c07e0a0dc0e1484ee6659e1f90a302cf3
+  StripeApplePay: 5b098a0ba6136f4b587e03f5a3776461b4f20dd4
+  StripeCore: 880a68482cf78d4745c5213c2fd3446efc73574b
+  StripeFinancialConnections: 49a19ca17dbb3055a8b559a1e3adfe769784a8f8
+  StripePayments: 3af5b03fa1831c301a4d1621eb0e790280dccb46
+  StripePaymentSheet: 8321efebb6d104add8fce929286d414545913114
+  StripePaymentsUI: 4c35e12ebcd4bd9bd21e379f03f730bee097250d
+  StripeUICore: 22b314dc9f7ea8814d0f9eeba0ddb5e4b77f34f3
 
-PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
+PODFILE CHECKSUM: cc1f88378b4bfcf93a6ce00d2c587857c6008d3b
 
 COCOAPODS: 1.13.0

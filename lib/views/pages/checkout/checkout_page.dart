@@ -24,7 +24,7 @@ class CheckoutPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Checkout',
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         centerTitle: true,
       ),
@@ -36,7 +36,7 @@ class CheckoutPage extends StatelessWidget {
             children: [
               Text(
                 'Shipping address',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8.0),
               StreamBuilder<List<ShippingAddress>>(
@@ -61,7 +61,7 @@ class CheckoutPage extends StatelessWidget {
                                   'Add new one',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .button!
+                                      .labelSmall!
                                       .copyWith(
                                         color: Colors.redAccent,
                                       ),
@@ -86,7 +86,7 @@ class CheckoutPage extends StatelessWidget {
                 children: [
                   Text(
                     'Payment',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   InkWell(
                     onTap: () {
@@ -94,7 +94,7 @@ class CheckoutPage extends StatelessWidget {
                     },
                     child: Text(
                       'Change',
-                      style: Theme.of(context).textTheme.button!.copyWith(
+                      style: Theme.of(context).textTheme.labelSmall!.copyWith(
                             color: Colors.redAccent,
                           ),
                     ),
@@ -106,7 +106,7 @@ class CheckoutPage extends StatelessWidget {
               const SizedBox(height: 24.0),
               Text(
                 'Delivery method',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8.0),
               StreamBuilder<List<DeliveryMethod>>(

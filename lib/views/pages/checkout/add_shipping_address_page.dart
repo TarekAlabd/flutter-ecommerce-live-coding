@@ -86,7 +86,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
           shippingAddress != null
               ? 'Editing Shipping Address'
               : 'Adding Shipping Address',
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         centerTitle: true,
       ),

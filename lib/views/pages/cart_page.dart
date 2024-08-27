@@ -61,7 +61,7 @@ class _CartPageState extends State<CartPage> {
                       const SizedBox(height: 16.0),
                       Text(
                         'My Cart',
-                        style: Theme.of(context).textTheme.headline4!.copyWith(
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
@@ -71,7 +71,7 @@ class _CartPageState extends State<CartPage> {
                         Center(
                           child: Text(
                             'No Data Available!',
-                            style: Theme.of(context).textTheme.subtitle1,
+                            style: Theme.of(context).textTheme.labelMedium,
                           ),
                         ),
                       if (cartItems != null && cartItems.isNotEmpty)
