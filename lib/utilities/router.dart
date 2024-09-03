@@ -32,7 +32,11 @@ Route<dynamic> onGenerate(RouteSettings settings) {
       final database = settings.arguments as Database;
       return CupertinoPageRoute(
         builder: (_) => Provider<Database>.value(
-            value: database, child: const CheckoutPage()),
+            value: database,
+            child: BlocProvider(
+              create: (context) => CheckoutCubit(),
+              child: const CheckoutPage(),
+            )),
         settings: settings,
       );
     case AppRoutes.productDetailsRoute:

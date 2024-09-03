@@ -1,14 +1,21 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/services/auth.dart';
+import 'package:flutter_ecommerce/utilities/constants.dart';
 import 'package:flutter_ecommerce/utilities/router.dart';
 import 'package:flutter_ecommerce/utilities/routes.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
+  await initSetup();
+  runApp(const MyApp());
+}
+
+Future<void> initSetup() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  Stripe.publishableKey = AppConstants.publishableKey;
 }
 
 class MyApp extends StatelessWidget {
