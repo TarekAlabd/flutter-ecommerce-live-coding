@@ -52,3 +52,13 @@ final class PreferredMakingFailed extends CheckoutState {
 
   PreferredMakingFailed(this.error);
 }
+
+final class MakingPayment extends CheckoutState {}
+
+final class PaymentMade extends CheckoutState {}
+
+final class PaymentMakingFailed extends CheckoutState {
+  final String error;
+
+  PaymentMakingFailed(this.error);
+}

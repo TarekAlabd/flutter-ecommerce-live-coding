@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/models/payment_method.dart';
 import 'package:flutter_ecommerce/services/checkout_services.dart';
+import 'package:flutter_ecommerce/services/stripe_services.dart';
 import 'package:meta/meta.dart';
 
 part 'checkout_state.dart';
@@ -9,6 +11,19 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   CheckoutCubit() : super(CheckoutInitial());
 
   final checkoutServices = CheckoutServicesImpl();
+  final stripeServices = StripeServices.instance;
+
+  Future<void> makePayment(double amount) async {
+    emit(MakingPayment());
+
+    try {
+      await stripeServices.makePayment(amount, 'usd');
+      emit(PaymentMade());
+    } catch (e) {
+      debugPrint(e.toString());
+      emit(PaymentMakingFailed(e.toString()));
+    }
+  }
 
   Future<void> addCard(PaymentMethod paymentMethod) async {
     emit(AddingCards());

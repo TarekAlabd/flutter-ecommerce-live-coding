@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce/controllers/checkout/checkout_cubit.dart';
 import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/delivery_method.dart';
 import 'package:flutter_ecommerce/models/shipping_address.dart';
@@ -13,12 +15,13 @@ import 'package:flutter_ecommerce/views/widgets/main_button.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutPage extends StatelessWidget {
-  const CheckoutPage({Key? key}) : super(key: key);
+  const CheckoutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final database = Provider.of<Database>(context);
+    final checkoutCubit = BlocProvider.of<CheckoutCubit>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -90,7 +93,8 @@ class CheckoutPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.of(context).pushNamed(AppRoutes.paymentMethodsRoute);
+                      Navigator.of(context)
+                          .pushNamed(AppRoutes.paymentMethodsRoute);
                     },
                     child: Text(
                       'Change',
@@ -102,7 +106,7 @@ class CheckoutPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8.0),
-              PaymentComponent(),
+              const PaymentComponent(),
               const SizedBox(height: 24.0),
               Text(
                 'Delivery method',
@@ -137,12 +141,43 @@ class CheckoutPage extends StatelessWidget {
                     );
                   }),
               const SizedBox(height: 32.0),
-              CheckoutOrderDetails(),
+              const CheckoutOrderDetails(),
               const SizedBox(height: 64.0),
-              MainButton(
-                text: 'Submit Order',
-                onTap: () {},
-                hasCircularBorder: true,
+              BlocConsumer<CheckoutCubit, CheckoutState>(
+                bloc: checkoutCubit,
+                listenWhen: (previous, current) =>
+                    current is PaymentMakingFailed || current is PaymentMade,
+                listener: (context, state) {
+                  if (state is PaymentMakingFailed) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.error),
+                        backgroundColor: Colors.redAccent,
+                      ),
+                    );
+                  } else if (state is PaymentMade) {
+                    Navigator.of(context).popUntil(
+                      (route) => route.isFirst,
+                    );
+                  }
+                },
+                buildWhen: (previous, current) =>
+                    current is PaymentMade ||
+                    current is PaymentMakingFailed ||
+                    current is MakingPayment,
+                builder: (context, state) {
+                  if (state is MakingPayment) {
+                    return MainButton(
+                      hasCircularBorder: true,
+                      child: const CircularProgressIndicator.adaptive(),
+                    );
+                  }
+                  return MainButton(
+                    text: 'Submit Order',
+                    onTap: () async => await checkoutCubit.makePayment(300),
+                    hasCircularBorder: true,
+                  );
+                },
               ),
             ],
           ),
