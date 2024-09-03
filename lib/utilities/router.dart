@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/controllers/checkout/checkout_cubit.dart';
 import 'package:flutter_ecommerce/controllers/database_controller.dart';
-import 'package:flutter_ecommerce/models/product.dart';
-import 'package:flutter_ecommerce/models/shipping_address.dart';
 import 'package:flutter_ecommerce/utilities/args_models/add_shipping_address_args.dart';
 import 'package:flutter_ecommerce/utilities/routes.dart';
 import 'package:flutter_ecommerce/views/pages/bottom_navbar.dart';
@@ -11,7 +9,6 @@ import 'package:flutter_ecommerce/views/pages/checkout/add_shipping_address_page
 import 'package:flutter_ecommerce/views/pages/checkout/checkout_page.dart';
 import 'package:flutter_ecommerce/views/pages/checkout/payment_methods_page.dart';
 import 'package:flutter_ecommerce/views/pages/checkout/shipping_addresses_page.dart';
-import 'package:flutter_ecommerce/views/pages/landing_page.dart';
 import 'package:flutter_ecommerce/views/pages/auth_page.dart';
 import 'package:flutter_ecommerce/views/pages/product_details.dart';
 import 'package:provider/provider.dart';
@@ -86,10 +83,9 @@ Route<dynamic> onGenerate(RouteSettings settings) {
         ),
         settings: settings,
       );
-    case AppRoutes.landingPageRoute:
     default:
       return CupertinoPageRoute(
-        builder: (_) => const LandingPage(),
+        builder: (_) => const AuthPage(),
         settings: settings,
       );
   }

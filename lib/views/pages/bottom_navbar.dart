@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce/controllers/home/home_cubit.dart';
 import 'package:flutter_ecommerce/views/pages/cart_page.dart';
 import 'package:flutter_ecommerce/views/pages/home_page.dart';
 import 'package:flutter_ecommerce/views/pages/profle_page.dart';
@@ -17,7 +19,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   List<Widget> _buildScreens() {
     return [
-      const HomePage(),
+      BlocProvider(
+        create: (context) {
+          final cubit = HomeCubit();
+          cubit.getHomeContent();
+          return cubit;
+        },
+        child: const HomePage(),
+      ),
       Container(),
       const CartPage(),
       Container(),
