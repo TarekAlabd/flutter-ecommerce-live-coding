@@ -22,15 +22,9 @@ class ListItemHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final database = Provider.of<Database>(context);
     return InkWell(
       onTap: () => Navigator.of(context, rootNavigator: true).pushNamed(
         AppRoutes.productDetailsRoute,
-        // TODO: we need to refactor to create models for the arguments
-        arguments: {
-          'product': product,
-          'database': database,
-        },
       ),
       child: Stack(
         children: [
