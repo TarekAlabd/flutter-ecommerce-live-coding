@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/controllers/checkout/checkout_cubit.dart';
 import 'package:flutter_ecommerce/controllers/database_controller.dart';
+import 'package:flutter_ecommerce/controllers/product_details/product_details_cubit.dart';
 import 'package:flutter_ecommerce/utilities/args_models/add_shipping_address_args.dart';
 import 'package:flutter_ecommerce/utilities/routes.dart';
 import 'package:flutter_ecommerce/views/pages/bottom_navbar.dart';
@@ -37,13 +38,16 @@ Route<dynamic> onGenerate(RouteSettings settings) {
         settings: settings,
       );
     case AppRoutes.productDetailsRoute:
-      final args = settings.arguments as Map<String, dynamic>;
-      final product = args['product'];
-      final database = args['database'];
+      final productId = settings.arguments as String;
+
       return CupertinoPageRoute(
-        builder: (_) => Provider<Database>.value(
-          value: database,
-          child: ProductDetails(product: product),
+        builder: (_) => BlocProvider(
+          create: (context) {
+            final cubit = ProductDetailsCubit();
+            cubit.getProductDetails(productId);
+            return cubit;
+          },
+          child: const ProductDetails(),
         ),
         settings: settings,
       );
