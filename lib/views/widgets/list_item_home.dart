@@ -12,12 +12,12 @@ class ListItemHome extends StatelessWidget {
   final VoidCallback? addToFavorites;
   bool isFavorite;
   ListItemHome({
-    Key? key,
+    super.key,
     required this.product,
     required this.isNew,
     this.addToFavorites,
     this.isFavorite = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +25,7 @@ class ListItemHome extends StatelessWidget {
     return InkWell(
       onTap: () => Navigator.of(context, rootNavigator: true).pushNamed(
         AppRoutes.productDetailsRoute,
+        arguments: product.id,
       ),
       child: Stack(
         children: [

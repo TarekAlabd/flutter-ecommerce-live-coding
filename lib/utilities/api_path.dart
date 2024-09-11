@@ -1,5 +1,7 @@
 class ApiPath {
   static String products() => 'products/';
+  static String product(String id) => 'products/$id';
+
   static String deliveryMethods() => 'deliveryMethods/';
   static String user(String uid) => 'users/$uid';
   static String userShippingAddress(String uid) => 'users/$uid/shippingAddresses/';
