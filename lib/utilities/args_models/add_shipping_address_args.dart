@@ -1,9 +1,9 @@
-import 'package:flutter_ecommerce/controllers/database_controller.dart';
+import 'package:flutter_ecommerce/controllers/checkout/checkout_cubit.dart';
 import 'package:flutter_ecommerce/models/shipping_address.dart';
 
 class AddShippingAddressArgs {
-  final Database database;
   final ShippingAddress? shippingAddress;
+  final CheckoutCubit checkoutCubit;
 
-  AddShippingAddressArgs({required this.database, this.shippingAddress});
+  AddShippingAddressArgs({this.shippingAddress, required this.checkoutCubit,});
 }

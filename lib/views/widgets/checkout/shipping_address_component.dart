@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/controllers/checkout/checkout_cubit.dart';
 import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/shipping_address.dart';
 import 'package:flutter_ecommerce/utilities/routes.dart';
-import 'package:provider/provider.dart';
 
 class ShippingAddressComponent extends StatelessWidget {
   final ShippingAddress shippingAddress;
+  final CheckoutCubit checkoutCubit;
   const ShippingAddressComponent({
-    Key? key,
+    super.key,
     required this.shippingAddress,
-  }) : super(key: key);
+    required this.checkoutCubit,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final database = Provider.of<Database>(context);
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       child: Padding(
@@ -33,7 +34,7 @@ class ShippingAddressComponent extends StatelessWidget {
                 InkWell(
                   onTap: () => Navigator.of(context).pushNamed(
                     AppRoutes.shippingAddressesRoute,
-                    arguments: database,
+                    arguments: checkoutCubit,
                   ),
                   child: Text(
                     'Change',
