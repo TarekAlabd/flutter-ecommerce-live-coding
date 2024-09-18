@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/controllers/checkout/checkout_cubit.dart';
-import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/controllers/product_details/product_details_cubit.dart';
+import 'package:flutter_ecommerce/models/shipping_address.dart';
 import 'package:flutter_ecommerce/utilities/args_models/add_shipping_address_args.dart';
 import 'package:flutter_ecommerce/utilities/routes.dart';
 import 'package:flutter_ecommerce/views/pages/bottom_navbar.dart';
@@ -12,7 +12,6 @@ import 'package:flutter_ecommerce/views/pages/checkout/payment_methods_page.dart
 import 'package:flutter_ecommerce/views/pages/checkout/shipping_addresses_page.dart';
 import 'package:flutter_ecommerce/views/pages/auth_page.dart';
 import 'package:flutter_ecommerce/views/pages/product_details.dart';
-import 'package:provider/provider.dart';
 
 Route<dynamic> onGenerate(RouteSettings settings) {
   switch (settings.name) {
@@ -27,14 +26,15 @@ Route<dynamic> onGenerate(RouteSettings settings) {
         settings: settings,
       );
     case AppRoutes.checkoutPageRoute:
-      final database = settings.arguments as Database;
       return CupertinoPageRoute(
-        builder: (_) => Provider<Database>.value(
-            value: database,
-            child: BlocProvider(
-              create: (context) => CheckoutCubit(),
-              child: const CheckoutPage(),
-            )),
+        builder: (_) => BlocProvider(
+          create: (context) {
+            final cubit = CheckoutCubit();
+            cubit.getCheckoutData();
+            return cubit;
+          },
+          child: const CheckoutPage(),
+        ),
         settings: settings,
       );
     case AppRoutes.productDetailsRoute:
@@ -53,10 +53,10 @@ Route<dynamic> onGenerate(RouteSettings settings) {
       );
 
     case AppRoutes.shippingAddressesRoute:
-      final database = settings.arguments as Database;
+      final checkoutCubit = settings.arguments as CheckoutCubit;
       return CupertinoPageRoute(
-        builder: (_) => Provider<Database>.value(
-          value: database,
+        builder: (_) => BlocProvider.value(
+          value: checkoutCubit,
           child: const ShippingAddressesPage(),
         ),
         settings: settings,
@@ -75,12 +75,12 @@ Route<dynamic> onGenerate(RouteSettings settings) {
       );
     case AppRoutes.addShippingAddressRoute:
       final args = settings.arguments as AddShippingAddressArgs;
-      final database = args.database;
+      final checkoutCubit = args.checkoutCubit;
       final shippingAddress = args.shippingAddress;
 
       return CupertinoPageRoute(
-        builder: (_) => Provider<Database>.value(
-          value: database,
+        builder: (_) => BlocProvider.value(
+          value: checkoutCubit,
           child: AddShippingAddressPage(
             shippingAddress: shippingAddress,
           ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce/controllers/checkout/checkout_cubit.dart';
 import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/shipping_address.dart';
 import 'package:flutter_ecommerce/utilities/args_models/add_shipping_address_args.dart';
@@ -8,9 +10,9 @@ import 'package:provider/provider.dart';
 class ShippingAddressStateItem extends StatefulWidget {
   final ShippingAddress shippingAddress;
   const ShippingAddressStateItem({
-    Key? key,
+    super.key,
     required this.shippingAddress,
-  }) : super(key: key);
+  });
 
   @override
   State<ShippingAddressStateItem> createState() =>
@@ -28,7 +30,8 @@ class _ShippingAddressStateItemState extends State<ShippingAddressStateItem> {
 
   @override
   Widget build(BuildContext context) {
-    final database = Provider.of<Database>(context);
+    final checkoutCubit = BlocProvider.of<CheckoutCubit>(context);
+    
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       child: Padding(
@@ -49,8 +52,8 @@ class _ShippingAddressStateItemState extends State<ShippingAddressStateItem> {
                   onTap: () => Navigator.of(context).pushNamed(
                     AppRoutes.addShippingAddressRoute,
                     arguments: AddShippingAddressArgs(
-                      database: database,
                       shippingAddress: widget.shippingAddress,
+                      checkoutCubit: checkoutCubit
                     ),
                   ),
                   child: Text(
@@ -81,7 +84,7 @@ class _ShippingAddressStateItemState extends State<ShippingAddressStateItem> {
                 // TODO: We need to add the business logic of adding the default address (one default)
                 final newAddress =
                     widget.shippingAddress.copyWith(isDefault: newValue);
-                await database.saveAddress(newAddress);
+                await checkoutCubit.saveAddress(newAddress);
               },
               activeColor: Colors.black,
               contentPadding: EdgeInsets.zero,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce/controllers/checkout/checkout_cubit.dart';
 import 'package:flutter_ecommerce/controllers/database_controller.dart';
 import 'package:flutter_ecommerce/models/shipping_address.dart';
 import 'package:flutter_ecommerce/utilities/constants.dart';
@@ -49,7 +51,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
     super.dispose();
   }
 
-  Future<void> saveAddress(Database database) async {
+  Future<void> saveAddress(CheckoutCubit checkoutCubit) async {
     try {
       if (_formKey.currentState!.validate()) {
         final address = ShippingAddress(
@@ -63,7 +65,8 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
           state: _stateController.text.trim(),
           zipCode: _zipCodeController.text.trim(),
         );
-        await database.saveAddress(address);
+        await checkoutCubit.saveAddress(address);
+        // await database.saveAddress(address);
         if (!mounted) return;
         Navigator.of(context).pop();
       }
@@ -78,8 +81,8 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
 
   @override
   Widget build(BuildContext context) {
-    final database = Provider.of<Database>(context);
-
+    final checkoutCubit = BlocProvider.of<CheckoutCubit>(context);
+    
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -166,7 +169,7 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
                 const SizedBox(height: 32.0),
                 MainButton(
                   text: 'Save Address',
-                  onTap: () => saveAddress(database),
+                  onTap: () => saveAddress(checkoutCubit),
                   hasCircularBorder: true,
                 ),
               ],
